@@ -1,0 +1,89 @@
+# ==========================================
+# 1. Operating System Files (OS 관련)
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# 2. IDE & Editor Configs (에디터 설정)
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==========================================
+# 3. Environment & Credentials (환경 변수 및 보안)
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ==========================================
+# 4. App Workspace (Node / WXT / pnpm)
+# ==========================================
+# Node Modules
+node_modules/
+**/node_modules/
+.pnpm-debug.log*
+pnpm-debug.log*
+
+# WXT & Vite Build Artifacts
+app/.wxt/
+app/.output/
+app/dist/
+app/build/
+
+# ==========================================
+# 5. Python Workspaces (Server & Model)
+# ==========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Virtual Environments
+.venv/
+**/.venv/
+env/
+venv/
+ENV/
+
+# Jupyter Notebook & Testing
+.ipynb_checkpoints/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# 6. Database & Docker Data (로컬 DB 데이터)
+# ==========================================
+# Docker Compose로 바인딩된 PostgreSQL 데이터 폴더
+db/data/
+*.sqlite3
+
+# ==========================================
+# 7. Model Datasets & Large Artifacts (학습 데이터)
+# ==========================================
+# 대용량 raw 데이터셋은 git 추적 제외 (필요 시 .gitkeep만 유효)
+model/datasets/*
+!model/datasets/.gitkeep
+
+# 학습 도중 생성되는 임시 덤프 및 통계 로그
+model/*.log
+model/export/tmp/
