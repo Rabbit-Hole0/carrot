@@ -160,6 +160,16 @@ git push origin feature/issue-description
 
 ```
 
+이후 GitHub에서 PR 생성
+1. GitHub 저장소의 Pull requests 탭으로 이동하여 New pull request 버튼을 클릭합니다.
+2. base: main $\leftarrow$ compare: [본인의 작업 브랜치] 상태인지 확인합니다.
+3. 자동으로 적용된 PR 템플릿에 맞추어 상세 작업 내용을 작성합니다.
+4. 오른편 사이드바 메뉴를 설정합니다:
+    Reviewers: 프로젝트 관리자 지정
+    Assignees: 본인 지정
+    Labels: 해당 작업 라벨 선택 (e.g. enhancement, bug)
+5. 작성 완료 
+
 * GitHub 저장소로 이동하여 `main` 브랜치를 타겟으로 Pull Request(PR)를 생성합니다.
 * PR 내용에 작업 상세 항목 및 테스트 여부를 명시합니다.
 
@@ -173,5 +183,5 @@ git push origin feature/issue-description
 # 병합 완료 후 로컬 정리
 git checkout main
 git pull origin main
-git branch -d feature/issue-description
+git branch -d feature/[본인의 작업 브랜치]
 
