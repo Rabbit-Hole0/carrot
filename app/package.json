@@ -1,14 +1,16 @@
 {
-  "name": "wxt-starter",
+  "name": "rabbit-carrot",
   "description": "manifest.json description",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
+    "postbuild": "node scripts/sanitize-extension-output.mjs",
     "build:firefox": "wxt build -b firefox",
+    "postbuild:firefox": "node scripts/sanitize-extension-output.mjs",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",

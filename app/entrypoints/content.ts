@@ -1,6 +1,6 @@
 export default defineContentScript({
   matches: ['<all_urls>'],
-  runAt: 'document_idle',
+  runAt: 'document_start',
   main() {
     const loc = typeof window !== 'undefined' ? window.location?.href : '';
     console.error('[Carrot Runtime] content script main() entered:', loc);
