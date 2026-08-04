@@ -1,10 +1,23 @@
-import { getCacheByHash, saveCache } from './db';
 import { generateSHA256 } from './crypto';
-import { extractFeatureVector } from './vector';
+import { extractTextMetrics, type TextMetrics } from './vector';
+import { dbClient } from './messaging';
+
 
 const TARGET_SELECTOR = 'p, article, section, div, span, li, h1, h2, h3, h4, h5, h6';
 const MIN_TEXT_LENGTH = 15;
 const SCROLL_DEBOUNCE_MS = 200;
+
+/**
+ * 임시 AI 확률 계산기
+ * TODO: 실제 ML 모델이나 의사결정 트리로 교체할 것.
+ */
+function calculateTemporaryAIScore(metrics: TextMetrics): number {
+  let score = 0.5;
+  if (metrics.burstiness < 0.2) score += 0.2;
+  if (metrics.ngram > 0.5) score += 0.2;
+  if (metrics.entropy < 0.3) score += 0.1;
+  return Math.min(Math.max(score, 0), 1.0);
+}
 
 class DOMTextScanner {
   private intersectionObserver: IntersectionObserver | null = null;
@@ -163,21 +176,35 @@ class DOMTextScanner {
         // 1. 웹 Crypto API를 사용한 SHA-256 해시 생성
         const hash = await generateSHA256(text);
 
-        // 2. Dexie IndexedDB 캐시 조회
-        const cached = await getCacheByHash(hash);
+        // 2. Background DB Client 캐시 조회
+        const cached = await dbClient.getTextCache(hash);
         if (cached) {
-          const msg = `[Carrot] Cache Hit for hash ${hash.substring(0, 8)}... Vector: ${JSON.stringify(cached.vector)}`;
+          const msg = `[Carrot] Cache Hit for hash ${hash.substring(0, 8)}... Score: ${cached.score}`;
           console.log(msg);
           console.warn(msg);
           continue;
         }
 
-        // 3. 5차원 특징 벡터 추출
-        const vector = extractFeatureVector(text);
+        // 3. 메트릭 추출 및 임시 판정
+        const metrics = extractTextMetrics(text);
+        const score = calculateTemporaryAIScore(metrics);
+        // TODO: Threshold 설정값을 Settings에서 연동하여 비교 (임시로 0.75)
+        const is_ai = score >= 0.75;
 
-        // 4. 로컬 DB 저장
-        await saveCache(hash, text, vector);
-        const msg = `[Carrot] Cache Miss -> Stored Vector for ${hash.substring(0, 8)}...: ${JSON.stringify(vector)}`;
+        // 4. 로컬 DB 저장 (Background로 메시지 전송)
+        const stored = await dbClient.putTextCache({
+          hash,
+          score,
+          is_ai,
+          metrics,
+          created_at: Date.now()
+        });
+
+        if (stored.hash !== hash) {
+          throw new Error(`DB verification failed for ${hash}`);
+        }
+
+        const msg = `[Carrot] Cache Miss -> Stored and verified ${hash.substring(0, 8)}...: ${JSON.stringify(metrics)} (Score: ${score})`;
         console.log(msg);
         console.warn(msg);
       } catch (err) {
