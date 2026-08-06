@@ -4,6 +4,14 @@
  * [v1: Burstiness / Sentence StdDev, v2: TTR Diversity, v3: Entropy, v4: N-gram Cliché Matching, v5: Punctuation Repetitiveness]
  */
 
+export interface TextMetrics {
+  burstiness: number;
+  ttr: number;
+  entropy: number;
+  ngram: number;
+}
+
+
 const AI_CLICHES_KOREAN = [
   '종합적으로 볼 때',
   '결론적으로 말해서',
@@ -129,12 +137,27 @@ function calculatePunctuationRegularity(text: string): number {
 /**
  * Extracts a 5-dimensional feature vector normalized in [0, 1]
  */
-export function extractFeatureVector(text: string): number[] {
-  const v1 = Number(calculateSentenceStdDev(text).toFixed(4));
-  const v2 = Number(calculateTTR(text).toFixed(4));
-  const v3 = Number(calculateEntropy(text).toFixed(4));
-  const v4 = Number(calculateNgramClichéScore(text).toFixed(4));
-  const v5 = Number(calculatePunctuationRegularity(text).toFixed(4));
+export function extractFeatureVector(text: string): [number, number, number, number, number] {
+  const metrics = extractTextMetrics(text);
+  const punctuation = Number(calculatePunctuationRegularity(text).toFixed(4));
+  return metricsToVector(metrics, punctuation);
+}
 
-  return [v1, v2, v3, v4, v5];
+/**
+ * Extracts text metrics (4 features used for cache) normalized in [0, 1]
+ */
+export function extractTextMetrics(text: string): TextMetrics {
+  return {
+    burstiness: Number(calculateSentenceStdDev(text).toFixed(4)),
+    ttr: Number(calculateTTR(text).toFixed(4)),
+    entropy: Number(calculateEntropy(text).toFixed(4)),
+    ngram: Number(calculateNgramClichéScore(text).toFixed(4)),
+  };
+}
+
+/**
+ * Converts metrics and punctuation back to a 5-dimensional feature vector.
+ */
+export function metricsToVector(metrics: TextMetrics, punctuation: number): [number, number, number, number, number] {
+  return [metrics.burstiness, metrics.ttr, metrics.entropy, metrics.ngram, punctuation];
 }

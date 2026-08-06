@@ -11,6 +11,7 @@ export default defineContentScript({
         if (document.getElementById('carrot-detector-badge')) return;
         const badge = document.createElement('div');
         badge.id = 'carrot-detector-badge';
+        badge.dataset.carrotUi = 'true';
         badge.textContent = '🥕 Carrot Detector Active';
         badge.style.cssText = `
           position: fixed;
