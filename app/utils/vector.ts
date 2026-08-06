@@ -137,7 +137,7 @@ function calculatePunctuationRegularity(text: string): number {
 /**
  * Extracts a 5-dimensional feature vector normalized in [0, 1]
  */
-export function extractFeatureVector(text: string): number[] {
+export function extractFeatureVector(text: string): [number, number, number, number, number] {
   const metrics = extractTextMetrics(text);
   const punctuation = Number(calculatePunctuationRegularity(text).toFixed(4));
   return metricsToVector(metrics, punctuation);
@@ -158,6 +158,6 @@ export function extractTextMetrics(text: string): TextMetrics {
 /**
  * Converts metrics and punctuation back to a 5-dimensional feature vector.
  */
-export function metricsToVector(metrics: TextMetrics, punctuation: number): number[] {
+export function metricsToVector(metrics: TextMetrics, punctuation: number): [number, number, number, number, number] {
   return [metrics.burstiness, metrics.ttr, metrics.entropy, metrics.ngram, punctuation];
 }

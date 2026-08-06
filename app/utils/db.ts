@@ -3,6 +3,8 @@ import type { TextMetrics } from './vector';
 
 export interface TextCacheEntry {
   hash: string;
+  text: string;
+  vector: [number, number, number, number, number];
   score: number;
   is_ai: boolean;
   metrics: TextMetrics;

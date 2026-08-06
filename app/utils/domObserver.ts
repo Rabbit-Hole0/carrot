@@ -1,9 +1,15 @@
 import { generateSHA256 } from './crypto';
-import { extractTextMetrics, type TextMetrics } from './vector';
+import { extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
 import { dbClient } from './messaging';
 
 
 const TARGET_SELECTOR = 'p, article, section, div, span, li, h1, h2, h3, h4, h5, h6';
+const CARROT_UI_SELECTOR = '#carrot-detector-badge, [data-carrot-ui]';
+const COUPANG_REVIEW_SELECTOR = [
+  '.sdp-review__article__list__review__content',
+  '.js_reviewArticleContent',
+  '[data-component="review-content"]',
+].join(', ');
 const MIN_TEXT_LENGTH = 15;
 const SCROLL_DEBOUNCE_MS = 200;
 
@@ -76,18 +82,24 @@ class DOMTextScanner {
    */
   private setupMutationObserver(): void {
     this.mutationObserver = new MutationObserver((mutations) => {
-      let hasNewNodes = false;
+      let shouldProcess = false;
       for (const mutation of mutations) {
         if (mutation.type === 'childList') {
           for (const node of mutation.addedNodes) {
             if (node.nodeType === Node.ELEMENT_NODE) {
               this.observeElementTree(node as Element);
-              hasNewNodes = true;
+              shouldProcess = true;
             }
+          }
+        } else if (mutation.type === 'characterData') {
+          const parent = mutation.target.parentElement;
+          if (parent && !parent.closest(CARROT_UI_SELECTOR)) {
+            this.observeElementTree(parent);
+            shouldProcess = true;
           }
         }
       }
-      if (hasNewNodes) {
+      if (shouldProcess) {
         this.scheduleDebouncedProcessing();
       }
     });
@@ -95,6 +107,7 @@ class DOMTextScanner {
     this.mutationObserver.observe(document.body, {
       childList: true,
       subtree: true,
+      characterData: true,
     });
   }
 
@@ -136,15 +149,30 @@ class DOMTextScanner {
    */
   private observeElementTree(root: Element): void {
     if (!this.intersectionObserver) return;
+    if (root.matches(CARROT_UI_SELECTOR) || root.closest(CARROT_UI_SELECTOR)) return;
 
     const candidates: Element[] = [];
-    if (root.matches && root.matches(TARGET_SELECTOR)) {
-      candidates.push(root);
+    const isCoupangProduct = location.hostname.endsWith('coupang.com') && location.pathname.startsWith('/vp/products/');
+    const reviewRoot = root.matches('#sdpReview') ? root : root.closest('#sdpReview');
+
+    if (isCoupangProduct && !reviewRoot && !root.querySelector('#sdpReview')) {
+      return;
     }
-    candidates.push(...Array.from(root.querySelectorAll(TARGET_SELECTOR)));
+
+    if (isCoupangProduct) {
+      if (root.matches(COUPANG_REVIEW_SELECTOR)) candidates.push(root);
+      candidates.push(...Array.from(root.querySelectorAll(COUPANG_REVIEW_SELECTOR)));
+    }
+
+    // Keep a generic fallback for Coupang DOM variants and other websites.
+    if (candidates.length === 0) {
+      if (root.matches(TARGET_SELECTOR)) candidates.push(root);
+      candidates.push(...Array.from(root.querySelectorAll(TARGET_SELECTOR)));
+    }
 
     for (const el of candidates) {
-      if (this.observedElements.has(el)) continue;
+      if (el.matches(CARROT_UI_SELECTOR) || el.closest(CARROT_UI_SELECTOR)) continue;
+      if (isCoupangProduct && !el.closest('#sdpReview')) continue;
 
       // p, h1~h6, li 태그이거나 자식 내부에 하위 블록 태그(p, div, article 등)가 없는 단락 수준 요소 선택
       const hasSubBlocks = el.querySelector('p, article, section, div, h1, h2, h3, h4, h5, h6') !== null;
@@ -154,8 +182,10 @@ class DOMTextScanner {
 
       const text = el.textContent?.trim() || '';
       if (text.length >= MIN_TEXT_LENGTH) {
-        this.observedElements.add(el);
-        this.intersectionObserver.observe(el);
+        if (!this.observedElements.has(el)) {
+          this.observedElements.add(el);
+          this.intersectionObserver.observe(el);
+        }
       }
     }
   }
@@ -169,6 +199,7 @@ class DOMTextScanner {
     if (elementsToProcess.length === 0) return;
 
     for (const el of elementsToProcess) {
+      if (el.matches(CARROT_UI_SELECTOR) || el.closest(CARROT_UI_SELECTOR)) continue;
       const text = el.textContent?.trim();
       if (!text || text.length < MIN_TEXT_LENGTH) continue;
 
@@ -178,7 +209,7 @@ class DOMTextScanner {
 
         // 2. Background DB Client 캐시 조회
         const cached = await dbClient.getTextCache(hash);
-        if (cached) {
+        if (cached?.text === text && cached.vector?.length === 5) {
           const msg = `[Carrot] Cache Hit for hash ${hash.substring(0, 8)}... Score: ${cached.score}`;
           console.log(msg);
           console.warn(msg);
@@ -187,6 +218,7 @@ class DOMTextScanner {
 
         // 3. 메트릭 추출 및 임시 판정
         const metrics = extractTextMetrics(text);
+        const vector = extractFeatureVector(text);
         const score = calculateTemporaryAIScore(metrics);
         // TODO: Threshold 설정값을 Settings에서 연동하여 비교 (임시로 0.75)
         const is_ai = score >= 0.75;
@@ -194,6 +226,8 @@ class DOMTextScanner {
         // 4. 로컬 DB 저장 (Background로 메시지 전송)
         const stored = await dbClient.putTextCache({
           hash,
+          text,
+          vector,
           score,
           is_ai,
           metrics,
