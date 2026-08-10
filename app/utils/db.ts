@@ -1,5 +1,6 @@
 import Dexie, { type Table } from 'dexie';
 import type { TextMetrics } from './vector';
+import type { UserRules } from './settings';
 
 export interface TextCacheEntry {
   hash: string;
@@ -17,20 +18,25 @@ export interface FeatureVectorEntry {
   vector: [number, number, number, number, number];
 }
 
-export type FeedbackAction = 'UNMASKED' | 'REPORTED';
+export interface UserRuleEntry {
+  key: 'settings';
+  value: UserRules;
+  updated_at: number;
+}
 
-export interface FeedbackLogEntry {
-  hash: string;
-  user_action: FeedbackAction;
-  metrics: TextMetrics;
-  created_at: number;
+export interface DatabaseStatus {
+  name: string;
+  version: number;
+  tables: string[];
+  textCacheCount: number;
+  featureVectorCount: number;
+  userRulesCount: number;
 }
 
 export class TextCacheDatabase extends Dexie {
   text_cache!: Table<TextCacheEntry, string>;
   feature_vectors!: Table<FeatureVectorEntry, number>;
-  feedback_logs!: Table<FeedbackLogEntry, string>;
-
+  user_rules!: Table<UserRuleEntry, string>;
   constructor() {
     super('CarrotDB');
 
@@ -39,11 +45,11 @@ export class TextCacheDatabase extends Dexie {
       text_cache: 'hash, created_at',
     });
 
-    // v2 schema
+    // v2 schema. Keep text/vector in records because the content script uses
+    // them for cache validation and AI-score input.
     this.version(2).stores({
       text_cache: 'hash, score, created_at', // is_ai is intentionally not an index for broad browser support
       feature_vectors: '++id, label',
-      feedback_logs: 'hash'
     }).upgrade((trans) => {
       // Migrate v1 to v2
       // v1 TextCacheEntry had: hash, text, vector, created_at
@@ -63,9 +69,21 @@ export class TextCacheDatabase extends Dexie {
         entry.score = 0; // Default safe value
         entry.is_ai = false;
 
-        delete entry.text; // Remove raw text for privacy
-        delete entry.vector; // Removed from v2 schema
+        // Keep text/vector for the runtime cache contract. Older records may
+        // not have them, but new records must remain fully compatible.
       });
+    });
+
+    // v3 removes the unused feedback_logs object store entirely.
+    this.version(3).stores({
+      text_cache: 'hash, score, created_at',
+      feature_vectors: '++id, label',
+    });
+
+    this.version(4).stores({
+      text_cache: 'hash, score, created_at',
+      feature_vectors: '++id, label',
+      user_rules: 'key',
     });
   }
 }
@@ -81,6 +99,34 @@ export function getDB(): TextCacheDatabase | null {
     console.warn('[Carrot DB] Failed to initialize Dexie DB:', err);
     return null;
   }
+}
+
+/** Open CarrotDB and verify every table used by the extension exists. */
+export async function openDB(): Promise<TextCacheDatabase> {
+  const database = getDB();
+  if (!database) throw new Error('CarrotDB is not available');
+  await database.open();
+  const requiredTables = ['text_cache', 'feature_vectors', 'user_rules'];
+  const missingTables = requiredTables.filter(
+    (name) => !database.tables.some((table) => table.name === name),
+  );
+  if (missingTables.length > 0) {
+    throw new Error(`CarrotDB schema is incomplete: ${missingTables.join(', ')}`);
+  }
+  console.log(`[Carrot DB] Opened ${database.name} v${database.verno}.`);
+  return database;
+}
+
+export async function getDatabaseStatus(): Promise<DatabaseStatus> {
+  const database = await openDB();
+  return {
+    name: database.name,
+    version: database.verno,
+    tables: database.tables.map((table) => table.name),
+    textCacheCount: await database.text_cache.count(),
+    featureVectorCount: await database.feature_vectors.count(),
+    userRulesCount: await database.user_rules.count(),
+  };
 }
 
 // Repository API
@@ -105,6 +151,7 @@ export async function putTextCache(entry: TextCacheEntry): Promise<TextCacheEntr
     if (!stored) {
       throw new Error(`Stored text cache entry could not be read back: ${entry.hash}`);
     }
+    await purgeOldTextCache();
     return stored;
   } catch (err) {
     console.warn('[Carrot DB] putTextCache error:', err);
@@ -139,7 +186,7 @@ export async function purgeOldTextCache(maxItems = 10000, targetItems = 8000): P
   try {
     const count = await database.text_cache.count();
     if (count > maxItems) {
-      const itemsToDelete = count - targetItems;
+      const itemsToDelete = Math.min(2000, count);
       const oldestKeys = await database.text_cache
         .orderBy('created_at')
         .limit(itemsToDelete)
@@ -200,6 +247,17 @@ export async function getFeatureVectorsByLabel(label: string): Promise<FeatureVe
   }
 }
 
+export async function getAllFeatureVectors(): Promise<FeatureVectorEntry[]> {
+  const database = getDB();
+  if (!database) throw new Error('CarrotDB is not available');
+  try {
+    return await database.feature_vectors.toArray();
+  } catch (err) {
+    console.warn('[Carrot DB] getAllFeatureVectors error:', err);
+    throw err;
+  }
+}
+
 export async function deleteFeatureVector(id: number): Promise<void> {
   const database = getDB();
   if (!database) return;
@@ -210,26 +268,17 @@ export async function deleteFeatureVector(id: number): Promise<void> {
   }
 }
 
-export async function putFeedbackLog(entry: FeedbackLogEntry): Promise<void> {
-  if (entry.user_action !== 'UNMASKED' && entry.user_action !== 'REPORTED') {
-    throw new Error('Invalid feedback user_action');
-  }
+export async function getUserRules(): Promise<UserRuleEntry | undefined> {
   const database = getDB();
-  if (!database) return;
-  try {
-    await database.feedback_logs.put(entry);
-  } catch (err) {
-    console.warn('[Carrot DB] putFeedbackLog error:', err);
-  }
+  if (!database) throw new Error('CarrotDB is not available');
+  return database.user_rules.get('settings');
 }
 
-export async function getFeedbackLog(hash: string): Promise<FeedbackLogEntry | undefined> {
+export async function putUserRules(entry: UserRuleEntry): Promise<UserRuleEntry> {
   const database = getDB();
-  if (!database) return undefined;
-  try {
-    return await database.feedback_logs.get(hash);
-  } catch (err) {
-    console.warn('[Carrot DB] getFeedbackLog error:', err);
-    return undefined;
-  }
+  if (!database) throw new Error('CarrotDB is not available');
+  await database.user_rules.put(entry);
+  const stored = await database.user_rules.get(entry.key);
+  if (!stored) throw new Error('User rules could not be read back');
+  return stored;
 }

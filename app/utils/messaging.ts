@@ -1,4 +1,5 @@
-import type { TextCacheEntry, FeatureVectorEntry, FeedbackLogEntry } from './db';
+import type { TextCacheEntry, FeatureVectorEntry, DatabaseStatus, UserRuleEntry } from './db';
+import type { UserRules } from './settings';
 
 // DB Message Types
 export type DBMessage =
@@ -10,9 +11,11 @@ export type DBMessage =
   | { type: 'DB_ADD_FEATURE_VECTOR'; payload: { label: string; vector: [number, number, number, number, number] } }
   | { type: 'DB_GET_FEATURE_VECTOR'; payload: { id: number } }
   | { type: 'DB_GET_FEATURE_VECTORS_BY_LABEL'; payload: { label: string } }
+  | { type: 'DB_GET_ALL_FEATURE_VECTORS'; payload: undefined }
   | { type: 'DB_DELETE_FEATURE_VECTOR'; payload: { id: number } }
-  | { type: 'DB_PUT_FEEDBACK_LOG'; payload: { entry: FeedbackLogEntry } }
-  | { type: 'DB_GET_FEEDBACK_LOG'; payload: { hash: string } };
+  | { type: 'DB_GET_USER_RULES'; payload: undefined }
+  | { type: 'DB_PUT_USER_RULES'; payload: { rules: UserRules } }
+  | { type: 'DB_GET_STATUS'; payload: undefined };
 
 export type DBResponse<T> = 
   | { success: true; data: T }
@@ -44,7 +47,9 @@ export const dbClient = {
   addFeatureVector: (label: string, vector: [number, number, number, number, number]) => sendDBMessage<number>({ type: 'DB_ADD_FEATURE_VECTOR', payload: { label, vector } }),
   getFeatureVector: (id: number) => sendDBMessage<FeatureVectorEntry>({ type: 'DB_GET_FEATURE_VECTOR', payload: { id } }),
   getFeatureVectorsByLabel: (label: string) => sendDBMessage<FeatureVectorEntry[]>({ type: 'DB_GET_FEATURE_VECTORS_BY_LABEL', payload: { label } }),
+  getAllFeatureVectors: () => sendDBMessage<FeatureVectorEntry[]>({ type: 'DB_GET_ALL_FEATURE_VECTORS', payload: undefined }),
   deleteFeatureVector: (id: number) => sendDBMessage<void>({ type: 'DB_DELETE_FEATURE_VECTOR', payload: { id } }),
-  putFeedbackLog: (entry: FeedbackLogEntry) => sendDBMessage<void>({ type: 'DB_PUT_FEEDBACK_LOG', payload: { entry } }),
-  getFeedbackLog: (hash: string) => sendDBMessage<FeedbackLogEntry>({ type: 'DB_GET_FEEDBACK_LOG', payload: { hash } }),
+  getUserRules: () => sendDBMessage<UserRuleEntry | undefined>({ type: 'DB_GET_USER_RULES', payload: undefined }),
+  putUserRules: (rules: UserRules) => sendDBMessage<UserRuleEntry>({ type: 'DB_PUT_USER_RULES', payload: { rules } }),
+  getDatabaseStatus: () => sendDBMessage<DatabaseStatus>({ type: 'DB_GET_STATUS', payload: undefined }),
 };

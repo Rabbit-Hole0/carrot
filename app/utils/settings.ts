@@ -1,9 +1,17 @@
 export interface UserSettings {
-  threshold: number;       // 0.50~0.95, default 0.75
-  autoMask: boolean;       // default true
-  showTooltip: boolean;    // default true
-  blurIntensity: number;   // px, default 5
-  theme: 'light' | 'dark' | 'system'; // default system
+  threshold: number;
+  autoMask: boolean;
+  showTooltip: boolean;
+  blurIntensity: number;
+  theme: 'light' | 'dark' | 'system';
+}
+
+export interface UserRules {
+  threshold: number;
+  blockedWords: string[];
+  excludedDomains: string[];
+  autoMask: boolean;
+  showTooltip: boolean;
 }
 
 export const defaultSettings: UserSettings = {
@@ -14,10 +22,40 @@ export const defaultSettings: UserSettings = {
   theme: 'system',
 };
 
-/**
- * Retrieves the current user settings from browser.storage.local.
- * Fills in any missing fields with defaults.
- */
+export const defaultUserRules: UserRules = {
+  threshold: defaultSettings.threshold,
+  blockedWords: [],
+  excludedDomains: [],
+  autoMask: defaultSettings.autoMask,
+  showTooltip: defaultSettings.showTooltip,
+};
+
+export function normalizeUserRules(value: Partial<UserRules> | undefined): UserRules {
+  const threshold = Number(value?.threshold ?? defaultUserRules.threshold);
+  return {
+    threshold: Number.isFinite(threshold) ? Math.min(0.95, Math.max(0.5, threshold)) : 0.75,
+    blockedWords: Array.isArray(value?.blockedWords)
+      ? [...new Set(value!.blockedWords.map((word) => String(word).trim().toLocaleLowerCase()).filter(Boolean))]
+      : [],
+    excludedDomains: Array.isArray(value?.excludedDomains)
+      ? [...new Set(value!.excludedDomains.map((domain) => String(domain).trim().toLocaleLowerCase()).filter(Boolean))]
+      : [],
+    autoMask: value?.autoMask ?? defaultUserRules.autoMask,
+    showTooltip: value?.showTooltip ?? defaultUserRules.showTooltip,
+  };
+}
+
+export function isDomainExcluded(hostname: string, excludedDomains: string[]): boolean {
+  const host = hostname.toLocaleLowerCase().replace(/^www\./, '');
+  return excludedDomains.some((domain) => {
+    const normalized = domain
+      .replace(/^https?:\/\//, '')
+      .replace(/\/.*$/, '')
+      .replace(/^www\./, '');
+    return host === normalized || host.endsWith(`.${normalized}`);
+  });
+}
+
 export async function getUserSettings(): Promise<UserSettings> {
   if (typeof browser === 'undefined') return defaultSettings;
   try {
@@ -30,15 +68,11 @@ export async function getUserSettings(): Promise<UserSettings> {
   }
 }
 
-/**
- * Updates the given fields in user settings.
- */
 export async function updateUserSettings(updates: Partial<UserSettings>): Promise<void> {
   if (typeof browser === 'undefined') return;
   try {
     const current = await getUserSettings();
-    const updated = { ...current, ...updates };
-    await browser.storage.local.set({ user_settings: updated });
+    await browser.storage.local.set({ user_settings: { ...current, ...updates } });
   } catch (err) {
     console.error('[Carrot] Failed to update user settings.', err);
   }
