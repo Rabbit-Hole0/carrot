@@ -1,149 +1,157 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-09T09:54:21.680Z",
+  "generated_at": "2026-08-10T03:54:33.931Z",
+  "source_digest": "04fb508f8d7e96e292c8bc8c3678f5b6fb7a66dfd9bf68dcf43fa81d807226e6",
   "source": "ai-cliches.json",
-  "count": 30,
+  "vector_schema": [
+    "burstiness",
+    "ttr",
+    "entropy",
+    "trigram_repetition",
+    "punctuation"
+  ],
+  "count": 75,
   "vectors": [
     {
       "id": "ko_01",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "종합적으로 볼 때, 이 문제는 다양한 요소를 고려해야 합니다.",
+      "source_text": "이 리뷰가 도움이 되셨다면 도움이 돼요를 눌러주세요.",
       "vector": [
         0,
-        1,
-        1,
-        0.3333,
-        0.5882
+        0.8571,
+        0.8982,
+        0.1111,
+        0.3448
       ]
     },
     {
       "id": "ko_02",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "결론적으로 말해서, 우리는 몇 가지 중요한 사항을 살펴봤습니다.",
+      "source_text": "제 리뷰가 도움이 되셨다면 [도움이 돼요] 버튼을 눌러주시면 큰 힘이 됩니다.",
       "vector": [
         0,
-        1,
-        1,
-        0.6667,
-        0.5714
+        0.9091,
+        0.9474,
+        0.0488,
+        0.6977
       ]
     },
     {
       "id": "ko_03",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "결론적으로, 이 내용을 요약하자면 다음과 같습니다.",
+      "source_text": "유용했다면 '도움이 되었어요' 버튼을 눌러주시면 큰 힘이 됩니다.",
       "vector": [
         0,
         1,
         1,
-        0.6667,
-        0.7143
+        0,
+        0.2778
       ]
     },
     {
       "id": "ko_04",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "요약하자면, 위에서 언급한 내용들을 정리하면 다음과 같이 설명할 수 있습니다.",
+      "source_text": "도움이 되셨다면 아래에 있는 [도움이 돼요] 버튼을 한 번만 꾹 눌러주시면 감사하겠습니다.",
       "vector": [
         0,
-        1,
-        1,
-        0.3333,
-        0.4651
+        0.9167,
+        0.9535,
+        0.0417,
+        0.6
       ]
     },
     {
       "id": "ko_05",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "중요한 점은, 이 모든 요소들이 서로 복잡하게 연결되어 있다는 것입니다.",
+      "source_text": "제 후기가 도움이 되었다면 [도움이 돼요] 버튼을 클릭해 주세요.",
       "vector": [
         0,
-        1,
-        1,
-        0.3333,
-        0.5
+        0.8889,
+        0.9299,
+        0.0588,
+        0.8333
       ]
     },
     {
       "id": "ko_06",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "다음과 같은 이유로, 이 방법이 가장 효율적이라고 볼 수 있습니다.",
+      "source_text": "도움이 돼요 꼭 한 번만 눌러주세요.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.5405
+        0,
+        0.5
       ]
     },
     {
       "id": "ko_07",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "이에 대해 자세히 살펴보겠습니다. 먼저 첫 번째 요소를 알아보겠습니다.",
+      "source_text": "제 후기가 마음에 드시면 도움이 돼요 버튼을 꾹 눌러주시길 부탁드려요.",
       "vector": [
-        0.02,
+        0,
         1,
         1,
-        0.6667,
-        0.5128
+        0,
+        0.2564
       ]
     },
     {
       "id": "ko_08",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "이 내용이 도움이 되었기를 바랍니다. 추가적인 질문이 있으시면 언제든지 알아보겠습니다.",
+      "source_text": "제 솔직한 리뷰가 구매 결정에 도움이 되셨다면 도움 버튼을 한 번 눌러주세요.",
       "vector": [
-        0.07,
+        0,
         1,
         1,
-        0.6667,
-        0.4167
+        0.0244,
+        0.2326
       ]
     },
     {
       "id": "ko_09",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "다양한 요소를 고려할 때, 최선의 접근 방식은 단계적으로 진행하는 것입니다.",
+      "source_text": "조금이라도 도움이 되셨다면 하단의 도움이 돼요 버튼을 꾸욱 눌러주시면 감사하겠습니다.",
       "vector": [
         0,
-        1,
-        1,
-        0.3333,
-        0.4762
+        0.9,
+        0.9398,
+        0.0667,
+        0.2128
       ]
     },
     {
       "id": "ko_10",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "이에 대해 자세히 알아보겠습니다. 이 주제는 여러 관점에서 분석할 수 있습니다.",
+      "source_text": "도움이 돼요 버튼을 눌러주시면 리뷰 작성자에게 큰 힘이 됩니다.",
       "vector": [
-        0.07,
+        0,
         1,
         1,
-        0.6667,
-        0.4545
+        0,
+        0.2857
       ]
     },
     {
       "id": "ko_11",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "먼저 핵심 개념을 살펴보겠습니다. 이를 바탕으로 구체적인 사례를 알아보겠습니다.",
+      "source_text": "급하신 분들은 맨 아래 총평만 봐주세요.",
       "vector": [
-        0.07,
+        0,
         1,
         1,
-        0.6667,
+        0,
         0.4545
       ]
     },
@@ -151,247 +159,832 @@
       "id": "ko_12",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "물론, 이 방법에는 몇 가지 주의할 점이 있습니다. 다음 사항들을 유의해야 합니다.",
+      "source_text": "바쁘신 분들은 마지막 총평만 확인하셔도 됩니다.",
       "vector": [
-        0.11,
+        0,
         1,
         1,
-        0.3333,
-        0.6522
+        0,
+        0.3846
       ]
     },
     {
       "id": "ko_13",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "효과적인 방법으로는 다음과 같은 것들이 있습니다. 각각의 장단점을 고려하시기 바랍니다.",
+      "source_text": "여러 제품을 비교해 보던 중 가격과 구성이 괜찮아 보여 선택하게 되었습니다.",
       "vector": [
-        0.07,
+        0,
         1,
         1,
-        0.3333,
-        0.4167
+        0,
+        0.2381
       ]
     },
     {
       "id": "ko_14",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "무엇보다도, 이 과정에서 가장 중요한 것은 꾸준한 노력과 올바른 방향성입니다.",
+      "source_text": "평소 자주 사용하던 믿을 수 있는 브랜드라 고민 없이 구매했습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.4651
+        0,
+        0.2703
       ]
     },
     {
       "id": "ko_15",
       "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "이러한 맥락에서 볼 때, 우리는 보다 체계적인 접근 방식이 필요합니다.",
+      "source_text": "처음에는 기대에 맞지 않을까 걱정했지만 실제로 사용해 보니 만족스러웠습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.5128
-      ]
-    },
-    {
-      "id": "en_01",
-      "lang": "en",
-      "label": "ai_cliche",
-      "source_text": "In conclusion, it is important to note that all these factors are interconnected.",
-      "vector": [
         0,
-        1,
-        1,
-        0.6667,
-        0.2469
-      ]
-    },
-    {
-      "id": "en_02",
-      "lang": "en",
-      "label": "ai_cliche",
-      "source_text": "To summarize, we have explored various aspects of this topic in detail.",
-      "vector": [
-        0,
-        1,
-        1,
-        0.3333,
-        0.2817
-      ]
-    },
-    {
-      "id": "en_03",
-      "lang": "en",
-      "label": "ai_cliche",
-      "source_text": "Overall, it is worth noting that this approach offers several advantages.",
-      "vector": [
-        0,
-        1,
-        1,
-        0.6667,
-        0.274
-      ]
-    },
-    {
-      "id": "en_04",
-      "lang": "en",
-      "label": "ai_cliche",
-      "source_text": "Furthermore, it is important to note that this method provides significant benefits.",
-      "vector": [
-        0,
-        1,
-        1,
-        0.6667,
         0.2381
       ]
     },
     {
-      "id": "en_05",
-      "lang": "en",
+      "id": "ko_16",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "Moreover, we should delve into the underlying mechanisms that drive these outcomes.",
+      "source_text": "처음에는 다소 낯설지 않을까 걱정했는데 오히려 부담 없이 사용할 수 있었습니다.",
       "vector": [
         0,
         1,
         1,
-        0.6667,
-        0.241
+        0,
+        0.2273
       ]
     },
     {
-      "id": "en_06",
-      "lang": "en",
+      "id": "ko_17",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "In summary, the tapestry of factors involved makes this a complex issue to address.",
+      "source_text": "막상 사용해 보니 생각했던 것보다 훨씬 만족스러운 제품이었습니다.",
       "vector": [
         0,
         1,
         1,
-        0.6667,
-        0.241
+        0,
+        0.2778
       ]
     },
     {
-      "id": "en_07",
-      "lang": "en",
+      "id": "ko_18",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "It is worth noting that these findings have significant implications for our understanding.",
+      "source_text": "처음에는 조금 심심하게 느껴질 수 있지만 사용할수록 장점이 잘 느껴졌습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.1099
+        0.025,
+        0.2381
       ]
     },
     {
-      "id": "en_08",
-      "lang": "en",
+      "id": "ko_19",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "Additionally, we need to consider the broader context in which these changes are occurring.",
+      "source_text": "매일 사용하기에도 부담이 없고 누구나 무난하게 사용할 수 있습니다.",
       "vector": [
         0,
         1,
         1,
-        0,
-        0.2198
+        0.0286,
+        0.2703
       ]
     },
     {
-      "id": "en_09",
-      "lang": "en",
+      "id": "ko_20",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "Certainly, there are several key considerations that we need to keep in mind.",
+      "source_text": "가족 모두 부담 없이 사용할 수 있다는 점도 만족스러웠습니다.",
       "vector": [
         0,
         1,
         1,
         0,
-        0.2597
+        0.2941
       ]
     },
     {
-      "id": "en_10",
-      "lang": "en",
+      "id": "ko_21",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "It goes without saying that a comprehensive approach is necessary to achieve desired results.",
+      "source_text": "직접 사용해 보니 기대했던 것보다 만족도가 높은 제품이었습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.1075
+        0,
+        0.2857
       ]
     },
     {
-      "id": "en_11",
-      "lang": "en",
+      "id": "ko_22",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "Navigating this complex landscape requires a nuanced understanding of the various factors at play.",
+      "source_text": "무엇보다 사용하기 편리하다는 점이 가장 마음에 들었습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.102
+        0,
+        0.3125
       ]
     },
     {
-      "id": "en_12",
-      "lang": "en",
+      "id": "ko_23",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "This comprehensive overview highlights the key aspects that are essential to understanding the topic.",
-      "vector": [
-        0,
-        0.9286,
-        0.9625,
-        0,
-        0.099
-      ]
-    },
-    {
-      "id": "en_13",
-      "lang": "en",
-      "label": "ai_cliche",
-      "source_text": "In today's rapidly evolving landscape, it is crucial to stay informed about the latest developments.",
+      "source_text": "하나만 있어도 여러 가지 방식으로 활용할 수 있어 정말 편리했습니다.",
       "vector": [
         0,
         1,
         1,
-        0.3333,
-        0.3
+        0.0278,
+        0.2632
       ]
     },
     {
-      "id": "en_14",
-      "lang": "en",
+      "id": "ko_24",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "By leveraging these insights, we can develop more effective strategies for addressing these challenges.",
+      "source_text": "다양한 용도로 활용할 수 있어 일상에서 자주 손이 가는 제품입니다.",
       "vector": [
         0,
-        0.9286,
-        0.9625,
-        0.3333,
-        0.1942
+        1,
+        1,
+        0,
+        0.2703
       ]
     },
     {
-      "id": "en_15",
-      "lang": "en",
+      "id": "ko_25",
+      "lang": "ko",
       "label": "ai_cliche",
-      "source_text": "It is essential to recognize that this multifaceted issue requires a holistic approach to resolve.",
+      "source_text": "그대로 사용해도 좋지만 다른 재료나 제품과 함께 사용하면 더욱 만족스럽습니다.",
       "vector": [
         0,
-        0.9333,
-        0.9659,
-        0.6667,
-        0.102
+        1,
+        1,
+        0.0244,
+        0.2326
+      ]
+    },
+    {
+      "id": "ko_26",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "눈으로 직접 확인하기는 어렵지만 안심하고 사용할 수 있다는 점이 좋았습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2381
+      ]
+    },
+    {
+      "id": "ko_27",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "개인에 따라 다소 아쉽게 느껴질 수 있지만 크게 불편한 정도는 아니었습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2381
+      ]
+    },
+    {
+      "id": "ko_28",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "처음에는 다소 불편할 수 있지만 간단한 방법으로 충분히 해결할 수 있습니다.",
+      "vector": [
+        0,
+        0.9091,
+        0.9474,
+        0.075,
+        0.2381
+      ]
+    },
+    {
+      "id": "ko_29",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "아쉬운 점이 있다면 취향에 따라 다르게 느껴질 수 있다는 점입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0.0286,
+        0.2703
+      ]
+    },
+    {
+      "id": "ko_30",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "개인적으로 크게 아쉬운 점은 없었습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.4545
+      ]
+    },
+    {
+      "id": "ko_31",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "이런 분들께 추천드리고 싶은 제품입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.4545
+      ]
+    },
+    {
+      "id": "ko_32",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "부담 없이 꾸준히 사용할 수 있는 제품을 찾는 분들께 추천합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2778
+      ]
+    },
+    {
+      "id": "ko_33",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "가성비와 실용성을 중요하게 생각하는 분들에게 적극 추천합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2941
+      ]
+    },
+    {
+      "id": "ko_34",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "건강하고 간편한 제품을 찾는 분들이라면 만족하실 것 같습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2941
+      ]
+    },
+    {
+      "id": "ko_35",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "깔끔하고 활용도 높은 제품을 찾으신다면 꼭 한 번 사용해 보세요.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2778
+      ]
+    },
+    {
+      "id": "ko_36",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "A부터 B까지 어느 하나 부족함이 없는 만족스러운 제품입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2941
+      ]
+    },
+    {
+      "id": "ko_37",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "맛과 기능, 용량과 활용도까지 모두 만족스러웠습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.6897
+      ]
+    },
+    {
+      "id": "ko_38",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "가격 대비 만족도가 높아 꾸준히 사용하기 좋은 제품이라고 생각합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2632
+      ]
+    },
+    {
+      "id": "ko_39",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "전체적으로 기본에 충실하면서도 활용도가 높은 제품입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3226
+      ]
+    },
+    {
+      "id": "ko_40",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "앞으로도 떨어지지 않게 꾸준히 구비해 둘 생각입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3448
+      ]
+    },
+    {
+      "id": "ko_41",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "다 사용하면 다시 구매할 의사가 확실히 있습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3704
+      ]
+    },
+    {
+      "id": "ko_42",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "다 쓰면 무조건 재구매할 예정입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.5
+      ]
+    },
+    {
+      "id": "ko_43",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "내돈내산으로 직접 구매하고 사용한 솔직한 후기입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3448
+      ]
+    },
+    {
+      "id": "ko_44",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "직접 사용해 보고 느낀 점을 솔직하게 작성했습니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3571
+      ]
+    },
+    {
+      "id": "ko_45",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "개인의 실제 경험을 바탕으로 작성한 주관적인 후기입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3226
+      ]
+    },
+    {
+      "id": "ko_46",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "열심히 일해서 번 돈으로 직접 구매하고 꼼꼼히 비교한 솔직한 후기입니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.25
+      ]
+    },
+    {
+      "id": "ko_47",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "✅ 구매 이유 ✅ 사용 후기 ✅ 장점 ✅ 아쉬운 점 ✅ 총평",
+      "vector": [
+        0,
+        1,
+        1,
+        0.129,
+        0
+      ]
+    },
+    {
+      "id": "ko_48",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "✔ 제품 특징 ✔ 사용 방법 ✔ 장점 ✔ 단점 ✔ 재구매 의사",
+      "vector": [
+        0,
+        1,
+        1,
+        0.125,
+        0
+      ]
+    },
+    {
+      "id": "ko_49",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "✨ 제품 정보 ✨ 직접 사용해 본 솔직 후기 ✨ 총평",
+      "vector": [
+        0,
+        1,
+        1,
+        0.037,
+        0
+      ]
+    },
+    {
+      "id": "ko_50",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "⬇️ 이런 분들께 추천합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.625
+      ]
+    },
+    {
+      "id": "ko_51",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "⭐ 총평 및 재구매 의사",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ko_52",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "【장점】 【아쉬운 점】 【총평】",
+      "vector": [
+        0,
+        1,
+        1,
+        0.1333,
+        0
+      ]
+    },
+    {
+      "id": "ko_53",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "[구매 동기] [제품 특징] [사용 후기] [총평]",
+      "vector": [
+        0,
+        1,
+        1,
+        0.1154,
+        1
+      ]
+    },
+    {
+      "id": "ko_54",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "좋은 하루 보내시고 즐거운 쇼핑 하세요.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.4545
+      ]
+    },
+    {
+      "id": "ko_55",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "모두 즐거운 쇼핑 하시고 행복한 하루 보내세요.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.3846
+      ]
+    },
+    {
+      "id": "ko_56",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "리뷰를 잘 쓰지는 못하지만 구매에 조금이라도 도움이 된다면 만족합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.2564
+      ]
+    },
+    {
+      "id": "ko_57",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "리뷰를 잘 쓰지도 못하고 짧은 글이지만 구매하시는 데 도움이 된다면 저는 그걸로 만족합니다.",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0.1961
+      ]
+    },
+    {
+      "id": "ko_58",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "###",
+      "vector": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_59",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "**",
+      "vector": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_60",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "&quot;",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_61",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "&amp;",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_62",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "&amp;amp;",
+      "vector": [
+        0,
+        1,
+        0,
+        0.2857,
+        1
+      ]
+    },
+    {
+      "id": "ko_63",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "&lt;",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_64",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "&gt;",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_65",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "<br>",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_66",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "☆",
+      "vector": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ko_67",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "■■■■■■■■■■■■■■■",
+      "vector": [
+        0,
+        0,
+        0,
+        0.9231,
+        0
+      ]
+    },
+    {
+      "id": "ko_68",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "───☾ 총평 ☽───",
+      "vector": [
+        0,
+        1,
+        0,
+        0.1,
+        0
+      ]
+    },
+    {
+      "id": "ko_69",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "╔═══.·:·.☽✧ ✦ ✧☾.·:·.═══╗",
+      "vector": [
+        0.0294,
+        0,
+        0,
+        0.1739,
+        1
+      ]
+    },
+    {
+      "id": "ko_70",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "╚═══.·:·.☽✧ ✦ ✧☾.·:·.═══╝",
+      "vector": [
+        0.0294,
+        0,
+        0,
+        0.1739,
+        1
+      ]
+    },
+    {
+      "id": "ko_71",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "･ﾟﾟ･*:｡.｡:*ﾟ:*:✧･ﾟ: *✧･ﾟ:*",
+      "vector": [
+        0.11,
+        0,
+        0,
+        0.125,
+        1
+      ]
+    },
+    {
+      "id": "ko_72",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "【장점】",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ko_73",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "【아쉬운 점】",
+      "vector": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ko_74",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "[구매동기]",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "ko_75",
+      "lang": "ko",
+      "label": "ai_cliche",
+      "source_text": "[총평]",
+      "vector": [
+        0,
+        1,
+        0,
+        0,
+        1
       ]
     }
   ]
