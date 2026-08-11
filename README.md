@@ -183,5 +183,6 @@ git push origin feature/issue-description
 # 병합 완료 후 로컬 정리
 git checkout main
 git pull origin main
+git push origin --delete feature/[본인의 작업 브랜치]
 git branch -d feature/[본인의 작업 브랜치]
 
