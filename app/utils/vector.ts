@@ -11,6 +11,17 @@ export interface TextMetrics {
   ngram: number;
 }
 
+const AI_SYMBOL_PATTERN = /✅|✔️?|⭐|❤️?|⭕|❌|✨|⬇️?|❗|❣️?|♡|■|◈|●|★/gu;
+
+/**
+ * 지정된 장식 기호의 출현 횟수를 AI 보조 신호 [0, 1]로 변환합니다.
+ * 3회 이상 등장하면 최대 신호로 처리합니다.
+ */
+export function calculateAISymbolSignal(text: string): number {
+  const count = text.match(AI_SYMBOL_PATTERN)?.length ?? 0;
+  return Math.min(count / 3, 1);
+}
+
 
 const AI_CLICHES_KOREAN = [
   '종합적으로 볼 때',

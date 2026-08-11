@@ -1,5 +1,5 @@
 import { generateSHA256 } from './crypto';
-import { extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
+import { calculateAISymbolSignal, extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
 import { dbClient } from './messaging';
 import { defaultUserRules, isDomainExcluded, normalizeUserRules, type UserRules } from './settings';
 import {
@@ -19,6 +19,8 @@ const COUPANG_REVIEW_SELECTOR = [
 const MIN_TEXT_LENGTH = 15;
 const SCROLL_DEBOUNCE_MS = 200;
 const CARROT_MASK_STYLE_ID = 'carrot-ai-mask-styles';
+const AI_SYMBOL_WEIGHT = 0.08;
+const SCORE_MODEL_VERSION = 'symbols-v1';
 
 function ensureMaskStyles(): void {
   if (document.getElementById(CARROT_MASK_STYLE_ID)) return;
@@ -351,11 +353,11 @@ class DOMTextScanner {
 
       try {
         // 1. 웹 Crypto API를 사용한 SHA-256 해시 생성
-        const hash = await generateSHA256(text);
+        const hash = await generateSHA256(`${SCORE_MODEL_VERSION}:${text}`);
 
         // 2. Background DB Client 캐시 조회
         const cached = await dbClient.getTextCache(hash);
-        if (cached?.vector?.length === 5) {
+        if (cached?.text === text && cached.vector?.length === 5) {
           const normalizedCachedText = cached.text.toLocaleLowerCase();
           const cachedBlockedWord = this.userRules.blockedWords.find((word) => normalizedCachedText.includes(word));
           const effectiveScore = cachedBlockedWord ? 1 : cached.score;
@@ -381,13 +383,15 @@ class DOMTextScanner {
 
         // 5. 복합 AI 확률 점수 산출
         //    score = 0.40*cosineMax + 0.20*(1-burstiness) + 0.20*ngram + 0.10*(1-ttr) + 0.10*(1-entropy)
-        const score = computeCompositeAIScore({
+        const baseScore = computeCompositeAIScore({
           cosineMax,
           burstiness: metrics.burstiness,
           ttr: metrics.ttr,
           entropy: metrics.entropy,
           ngram: metrics.ngram,
         });
+        const symbolSignal = calculateAISymbolSignal(text);
+        const score = Number(Math.min(baseScore + symbolSignal * AI_SYMBOL_WEIGHT, 1).toFixed(4));
 
         // 사용자 차단 단어는 확률 계산 결과와 무관하게 AI 콘텐츠로 판정합니다.
         const normalizedText = text.toLocaleLowerCase();
