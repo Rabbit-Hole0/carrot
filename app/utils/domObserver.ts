@@ -1,6 +1,7 @@
 import { generateSHA256 } from './crypto';
-import { extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
+import { calculateAISymbolSignal, extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
 import { dbClient } from './messaging';
+import { detectLanguage, findMaximumClicheSimilarity, VECTOR_MODEL_VERSION } from './cosineSimilarity';
 
 
 const TARGET_SELECTOR = 'p, article, section, div, span, li, h1, h2, h3, h4, h5, h6';
@@ -17,13 +18,9 @@ const SCROLL_DEBOUNCE_MS = 200;
  * 임시 AI 확률 계산기
  * TODO: 실제 ML 모델이나 의사결정 트리로 교체할 것.
  */
-function calculateTemporaryAIScore(metrics: TextMetrics): number {
-  let score = 0.5;
-  if (metrics.burstiness < 0.2) score += 0.2;
-  if (metrics.ngram > 0.5) score += 0.2;
-  if (metrics.entropy < 0.3) score += 0.1;
-  return Math.min(Math.max(score, 0), 1.0);
-}
+const AI_SIMILARITY_THRESHOLD = 0.95;
+const AI_SYMBOL_WEIGHT = 0.08;
+const SCORE_MODEL_VERSION = `${VECTOR_MODEL_VERSION}:symbols-v1`;
 
 class DOMTextScanner {
   private intersectionObserver: IntersectionObserver | null = null;
@@ -205,11 +202,11 @@ class DOMTextScanner {
 
       try {
         // 1. 웹 Crypto API를 사용한 SHA-256 해시 생성
-        const hash = await generateSHA256(text);
+        const hash = await generateSHA256(`${SCORE_MODEL_VERSION}:${text}`);
 
         // 2. Background DB Client 캐시 조회
         const cached = await dbClient.getTextCache(hash);
-        if (cached?.text === text && cached.vector?.length === 5) {
+        if (cached?.text === text) {
           const msg = `[Carrot] Cache Hit for hash ${hash.substring(0, 8)}... Score: ${cached.score}`;
           console.log(msg);
           console.warn(msg);
@@ -219,15 +216,15 @@ class DOMTextScanner {
         // 3. 메트릭 추출 및 임시 판정
         const metrics = extractTextMetrics(text);
         const vector = extractFeatureVector(text);
-        const score = calculateTemporaryAIScore(metrics);
-        // TODO: Threshold 설정값을 Settings에서 연동하여 비교 (임시로 0.75)
-        const is_ai = score >= 0.75;
+        const match = findMaximumClicheSimilarity(vector, detectLanguage(text));
+        const symbolSignal = calculateAISymbolSignal(text);
+        const score = Number(Math.min(match.score + symbolSignal * AI_SYMBOL_WEIGHT, 1).toFixed(4));
+        const is_ai = score >= AI_SIMILARITY_THRESHOLD;
 
         // 4. 로컬 DB 저장 (Background로 메시지 전송)
         const stored = await dbClient.putTextCache({
           hash,
           text,
-          vector,
           score,
           is_ai,
           metrics,

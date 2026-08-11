@@ -4,7 +4,6 @@ import type { TextMetrics } from './vector';
 export interface TextCacheEntry {
   hash: string;
   text: string;
-  vector: [number, number, number, number, number];
   score: number;
   is_ai: boolean;
   metrics: TextMetrics;
@@ -87,28 +86,22 @@ export function getDB(): TextCacheDatabase | null {
 
 export async function getTextCache(hash: string): Promise<TextCacheEntry | undefined> {
   const database = getDB();
-  if (!database) throw new Error('CarrotDB is not available');
+  if (!database) return undefined;
   try {
     return await database.text_cache.get(hash);
   } catch (err) {
     console.warn('[Carrot DB] getTextCache error:', err);
-    throw err;
+    return undefined;
   }
 }
 
-export async function putTextCache(entry: TextCacheEntry): Promise<TextCacheEntry> {
+export async function putTextCache(entry: TextCacheEntry): Promise<void> {
   const database = getDB();
-  if (!database) throw new Error('CarrotDB is not available');
+  if (!database) return;
   try {
     await database.text_cache.put(entry);
-    const stored = await database.text_cache.get(entry.hash);
-    if (!stored) {
-      throw new Error(`Stored text cache entry could not be read back: ${entry.hash}`);
-    }
-    return stored;
   } catch (err) {
     console.warn('[Carrot DB] putTextCache error:', err);
-    throw err;
   }
 }
 

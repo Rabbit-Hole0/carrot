@@ -1,7 +1,7 @@
 /**
  * Linguistic Feature Extraction Engine
  * Extracts 5-dimensional normalized vector [0, 1] from raw text:
- * [v1: Burstiness / Sentence StdDev, v2: TTR Diversity, v3: Entropy, v4: N-gram Cliché Matching, v5: Punctuation Repetitiveness]
+ * [v1: Burstiness / Sentence StdDev, v2: TTR Diversity, v3: Entropy, v4: Trigram Repetition, v5: Punctuation Repetitiveness]
  */
 
 export interface TextMetrics {
@@ -11,33 +11,17 @@ export interface TextMetrics {
   ngram: number;
 }
 
+const AI_SYMBOL_PATTERN = /✅|✔️?|⭐|❤️?|⭕|❌|✨|⬇️?|❗|❣️?|♡|■|◈|●|★/gu;
 
-const AI_CLICHES_KOREAN = [
-  '종합적으로 볼 때',
-  '결론적으로 말해서',
-  '결론적으로',
-  '요약하자면',
-  '중요한 점은',
-  '다음과 같은 이유로',
-  '살펴보겠습니다',
-  '알아보겠습니다',
-  '도움이 되었기를',
-  '다양한 요소를 고려할 때',
-  '이에 대해 자세히 알아보겠습니다',
-];
+/**
+ * Treat AI-associated decorative symbols as a supporting signal.
+ * Repetition strengthens the signal, while a single symbol is not decisive.
+ */
+export function calculateAISymbolSignal(text: string): number {
+  const count = text.match(AI_SYMBOL_PATTERN)?.length ?? 0;
+  return Math.min(count / 3, 1);
+}
 
-const AI_CLICHES_ENGLISH = [
-  'in conclusion',
-  'to summarize',
-  'overall',
-  'it is important to note',
-  'delve into',
-  'tapestry of',
-  'in summary',
-  'furthermore',
-  'moreover',
-  'it is worth noting',
-];
 
 /**
  * Calculates standard deviation of sentence lengths (Burstiness metric).
@@ -106,28 +90,26 @@ function calculateEntropy(text: string): number {
 }
 
 /**
- * Calculates N-gram cliché phrase matching score.
+ * Calculates repeated character trigram ratio without a hard-coded phrase list.
  */
-function calculateNgramClichéScore(text: string): number {
-  const lower = text.toLowerCase();
-  let matches = 0;
+function calculateTrigramRepetition(text: string): number {
+  const normalized = text.toLowerCase().replace(/\s+/g, ' ').trim();
+  const size = 3;
+  const total = Math.max(normalized.length - size + 1, 0);
+  if (total === 0) return 0;
 
-  for (const phrase of AI_CLICHES_KOREAN) {
-    if (text.includes(phrase)) matches++;
+  const grams = new Set<string>();
+  for (let i = 0; i < total; i++) {
+    grams.add(normalized.slice(i, i + size));
   }
-  for (const phrase of AI_CLICHES_ENGLISH) {
-    if (lower.includes(phrase)) matches++;
-  }
-
-  // Normalize matches: 3 or more matches maps to 1.0
-  return Math.min(matches / 3, 1);
+  return 1 - (grams.size / total);
 }
 
 /**
  * Calculates punctuation & sentence ending regularity.
  */
 function calculatePunctuationRegularity(text: string): number {
-  const puncts = text.match(/[\text{~@#$%^&*()_+={}\[\]:;",.<>?/\\|`}]/g) || [];
+  const puncts = text.match(/[~@#$%^&*()_+={}\[\]:;",.<>?/\\|`]/g) || [];
   if (text.length === 0) return 0;
   const density = puncts.length / text.length;
   // Normalized density score
@@ -151,7 +133,7 @@ export function extractTextMetrics(text: string): TextMetrics {
     burstiness: Number(calculateSentenceStdDev(text).toFixed(4)),
     ttr: Number(calculateTTR(text).toFixed(4)),
     entropy: Number(calculateEntropy(text).toFixed(4)),
-    ngram: Number(calculateNgramClichéScore(text).toFixed(4)),
+    ngram: Number(calculateTrigramRepetition(text).toFixed(4)),
   };
 }
 

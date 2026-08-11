@@ -5,6 +5,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "vectorize": "node scripts/vectorize.mjs",
+    "prebuild": "node scripts/vectorize.mjs",
+    "prebuild:firefox": "node scripts/vectorize.mjs",
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",

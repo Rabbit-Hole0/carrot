@@ -4,17 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "vectorize": "node app/scripts/vectorize.mjs",
+    "build": "pnpm --dir app run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.18.0",
-      "onFail": "download"
-    }
-  },
   "type": "module"
 }
