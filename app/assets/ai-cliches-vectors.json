@@ -403,19 +403,6 @@
       ]
     },
     {
-      "id": "ko_31",
-      "lang": "ko",
-      "label": "ai_cliche",
-      "source_text": "이런 분들께 추천드리고 싶은 제품입니다.",
-      "vector": [
-        0,
-        1,
-        1,
-        0,
-        0.4545
-      ]
-    },
-    {
       "id": "ko_46",
       "lang": "ko",
       "label": "ai_cliche",
