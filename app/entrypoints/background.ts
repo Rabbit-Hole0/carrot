@@ -11,7 +11,6 @@ import {
   deleteFeatureVector,
   getUserRules,
   putUserRules,
-
   getDB,
   openDB,
   getDatabaseStatus,
@@ -22,7 +21,7 @@ import { defaultUserRules, normalizeUserRules } from "../utils/settings";
 
 export default defineBackground(() => {
   console.log("====================================");
-  console.log("🥕 [Carrot Background] Service worker loaded successfully!");
+  console.log("[Carrot Background] Service worker loaded successfully!");
   console.log("====================================");
 
   /**
@@ -42,24 +41,22 @@ export default defineBackground(() => {
     openDB()
       .then(() => {
         console.log(
-          "[Carrot Background] ✅ IndexedDB (CarrotDB) opened successfully.",
+          "[Carrot Background] IndexedDB (CarrotDB) opened successfully.",
         );
         dbReadyResolve();
       })
       .catch((err) => {
-        console.warn("[Carrot Background] ⚠️ IndexedDB open failed:", err);
+        console.warn("[Carrot Background] IndexedDB open failed:", err);
         dbReadyResolve(); // 실패해도 unblock — 이후 작업이 각자 에러 처리함
       });
   } else {
-    console.warn(
-      "[Carrot Background] ⚠️ getDB() returned null. DB unavailable.",
-    );
+    console.warn("[Carrot Background] getDB() returned null. DB unavailable.");
     dbReadyResolve();
   }
 
   /**
-   * AI 전형 벡터 시딩 (최초 1회).
-   * DB 준비 완료 후 실행됩니다.
+   * AI 특징 벡터 생성 - 최초 1회.
+   * DB 준비 완료 후 실행.
    */
   async function seedFeatureVectors(): Promise<void> {
     try {
@@ -75,15 +72,21 @@ export default defineBackground(() => {
       };
 
       if (existing.length > 0) {
-        const expectedLabels = new Set(dataset.vectors.map((entry) => entry.label));
-        const hasAllLabels = [...expectedLabels].every((label) => existing.some((entry) => entry.label === label));
+        const expectedLabels = new Set(
+          dataset.vectors.map((entry) => entry.label),
+        );
+        const hasAllLabels = [...expectedLabels].every((label) =>
+          existing.some((entry) => entry.label === label),
+        );
         if (existing.length === dataset.vectors.length && hasAllLabels) {
           console.log(
             `[Carrot Background] Feature vector cache already seeded (${existing.length} entries). Skipping.`,
           );
           return;
         }
-        console.log(`[Carrot Background] Vector dataset changed; replacing ${existing.length} cached entries.`);
+        console.log(
+          `[Carrot Background] Vector dataset changed; replacing ${existing.length} cached entries.`,
+        );
         for (const entry of existing) {
           if (entry.id !== undefined) await deleteFeatureVector(entry.id);
         }
@@ -109,7 +112,7 @@ export default defineBackground(() => {
         );
       }
       console.log(
-        `[Carrot Background] ✅ Seeded ${seeded} AI cliché feature vectors from dataset v${dataset.version}.`,
+        `[Carrot Background] Seeded ${seeded} AI cliché feature vectors from dataset v${dataset.version}.`,
       );
     } catch (err) {
       console.warn("[Carrot Background] Failed to seed feature vectors:", err);
@@ -209,12 +212,16 @@ export default defineBackground(() => {
             break;
           case "DB_GET_USER_RULES": {
             const stored = await getUserRules();
-            result = stored ?? { key: 'settings', value: defaultUserRules, updated_at: Date.now() };
+            result = stored ?? {
+              key: "settings",
+              value: defaultUserRules,
+              updated_at: Date.now(),
+            };
             break;
           }
           case "DB_PUT_USER_RULES":
             result = await putUserRules({
-              key: 'settings',
+              key: "settings",
               value: normalizeUserRules(dbMsg.payload.rules),
               updated_at: Date.now(),
             });

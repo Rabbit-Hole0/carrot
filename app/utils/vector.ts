@@ -5,46 +5,25 @@
  * N-gram은 코사인 벡터에 넣지 않고 최종 복합 점수에서만 20% 반영합니다.
  */
 
+import aiPatterns from '../assets/ai-patterns.json';
+
 export interface TextMetrics {
   burstiness: number;
   entropy: number;
   ngram: number;
 }
 
-const AI_SYMBOL_PATTERN = /✅|✔️?|⭐|❤️?|⭕|❌|✨|⬇️?|❗|❣️?|♡|■|◈|●|★/gu;
+const AI_SYMBOL_PATTERN = new RegExp(aiPatterns.symbolPattern, 'gu');
+const AI_FIXED_PHRASES_KOREAN = aiPatterns.fixedPhrasesKorean;
+const AI_WORD_NGRAMS_KOREAN = aiPatterns.wordNgramsKorean.map(
+  (pattern) => new RegExp(pattern, 'gu'),
+);
 
-/**
- * 지정된 장식 기호의 출현 횟수를 AI 보조 신호 [0, 1]로 변환합니다.
- * 3회 이상 등장하면 최대 신호로 처리합니다.
- */
+/** 지정된 장식 기호의 출현 횟수를 AI 보조 신호로 변환합니다. */
 export function calculateAISymbolSignal(text: string): number {
   const count = text.match(AI_SYMBOL_PATTERN)?.length ?? 0;
   return Math.min(count / 3, 1);
 }
-
-// 긴 문구는 그대로 매칭해 정밀도를 확보합니다.
-const AI_FIXED_PHRASES_KOREAN = [
-  "종합적으로 볼 때",
-  "결론적으로 말해서",
-  "다음과 같은 이유로",
-  "도움이 되었기를",
-  "다양한 요소를 고려할 때",
-  "이에 대해 자세히 알아보겠습니다",
-  "크게 세 가지로 나눌 수 있다",
-  "다음과 같이 요약할 수 있다",
-];
-
-// 조사·어미 활용형을 하나의 단어 N-gram으로 묶습니다.
-// 단독 단어는 오탐이 많으므로 문두/어절 경계 또는 둘 이상의 단어가 있는 패턴만 사용합니다.
-const AI_WORD_NGRAMS_KOREAN = [
-  /(?:^|[.!?]\s+)(?:결론적으로|요약하자면|종합하면|정리하자면|따라서|그러므로|또한|나아가|아울러|게다가|더욱이)(?=\s|[,.:;!?]|$)/gu,
-  /(?:에\s*대해(?:서)?|[을를]\s*통(?:해|하여)|에\s*있어(?:서)?|(?:라|다)는\s*점에서)/gu,
-  /(?:에\s*기반하여|[을를]\s*바탕으로|가지고\s*있(?:다|습니다|었다)|에\s*의해(?:서)?)/gu,
-  /(?:[을를]\s*수\s*있(?:다|습니다|었다)|[을를]\s*위해|(?:라|다)고\s*(?:할|볼)\s*수\s*있)/gu,
-  /(?:것으로\s*(?:보이|판단되)|(?:라|다)고\s*여겨지|인\s*듯하)/gu,
-  /(?:시사하는\s*바가\s*크다|주목할\s*만하다|간과할\s*수\s*없다|무시할\s*수\s*없다)/gu,
-  /(?:(?:다)는\s*(?:것이다|뜻이다)|주목할\s*점은|(?:라|다)는\s*점에\s*있다)/gu,
-];
 
 /** N-gram은 합산 2회부터 유효하며 3회 이상이면 최대점수입니다. */
 const NGRAM_MIN_MATCHES = 2;

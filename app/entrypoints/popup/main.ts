@@ -1,13 +1,18 @@
-import './style.css';
-import { dbClient } from '@/utils/messaging';
-import { defaultUserRules, normalizeUserRules, type UserRules } from '@/utils/settings';
+import "./style.css";
+import { dbClient } from "@/utils/messaging";
+import {
+  defaultUserRules,
+  normalizeUserRules,
+  type UserRules,
+} from "@/utils/settings";
 
-const app = document.querySelector<HTMLDivElement>('#app');
-if (!app) throw new Error('Popup root not found');
+const app = document.querySelector<HTMLDivElement>("#app");
+if (!app) throw new Error("Popup root not found");
 
+// 사용자 설정 화면 UI 정의
 app.innerHTML = `
   <main class="settings">
-    <h1>🥕 Carrot 설정</h1>
+    <h1>Carrot 설정</h1>
     <p class="description">AI 콘텐츠 필터링 규칙을 설정합니다.</p>
 
     <label class="field" for="threshold">
@@ -36,29 +41,39 @@ app.innerHTML = `
   </main>
 `;
 
-const threshold = document.querySelector<HTMLInputElement>('#threshold')!;
-const thresholdValue = document.querySelector<HTMLOutputElement>('#threshold-value')!;
-const blockedWords = document.querySelector<HTMLTextAreaElement>('#blocked-words')!;
-const excludedDomains = document.querySelector<HTMLTextAreaElement>('#excluded-domains')!;
-const autoMask = document.querySelector<HTMLInputElement>('#auto-mask')!;
-const showTooltip = document.querySelector<HTMLInputElement>('#show-tooltip')!;
-const save = document.querySelector<HTMLButtonElement>('#save')!;
-const status = document.querySelector<HTMLParagraphElement>('#status')!;
+const threshold = document.querySelector<HTMLInputElement>("#threshold")!;
+const thresholdValue =
+  document.querySelector<HTMLOutputElement>("#threshold-value")!;
+const blockedWords =
+  document.querySelector<HTMLTextAreaElement>("#blocked-words")!;
+const excludedDomains =
+  document.querySelector<HTMLTextAreaElement>("#excluded-domains")!;
+const autoMask = document.querySelector<HTMLInputElement>("#auto-mask")!;
+const showTooltip = document.querySelector<HTMLInputElement>("#show-tooltip")!;
+const save = document.querySelector<HTMLButtonElement>("#save")!;
+const status = document.querySelector<HTMLParagraphElement>("#status")!;
 
 function lines(value: string): string[] {
-  return [...new Set(value.split(/[,\n]/).map((item) => item.trim().toLocaleLowerCase()).filter(Boolean))];
+  return [
+    ...new Set(
+      value
+        .split(/[,\n]/)
+        .map((item) => item.trim().toLocaleLowerCase())
+        .filter(Boolean),
+    ),
+  ];
 }
 
 function renderRules(rules: UserRules): void {
   threshold.value = rules.threshold.toFixed(2);
   thresholdValue.value = rules.threshold.toFixed(2);
-  blockedWords.value = rules.blockedWords.join('\n');
-  excludedDomains.value = rules.excludedDomains.join('\n');
+  blockedWords.value = rules.blockedWords.join("\n");
+  excludedDomains.value = rules.excludedDomains.join("\n");
   autoMask.checked = rules.autoMask;
   showTooltip.checked = rules.showTooltip;
 }
 
-threshold.addEventListener('input', () => {
+threshold.addEventListener("input", () => {
   thresholdValue.value = Number(threshold.value).toFixed(2);
 });
 
@@ -72,9 +87,9 @@ async function load(): Promise<void> {
   }
 }
 
-save.addEventListener('click', async () => {
+save.addEventListener("click", async () => {
   save.disabled = true;
-  status.textContent = '저장 중...';
+  status.textContent = "저장 중...";
   try {
     const rules = normalizeUserRules({
       threshold: Number(threshold.value),
@@ -86,7 +101,7 @@ save.addEventListener('click', async () => {
     await dbClient.putUserRules(rules);
     await browser.storage.local.set({ user_rules: rules });
     renderRules(rules);
-    status.textContent = '저장되었습니다. 새 페이지부터 적용됩니다.';
+    status.textContent = "저장되었습니다. 새 페이지부터 적용됩니다.";
   } catch (error) {
     status.textContent = `저장 실패: ${String(error)}`;
   } finally {
