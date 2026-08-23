@@ -8,7 +8,7 @@ export type DBMessage =
   | { type: 'DB_DELETE_TEXT_CACHE'; payload: { hash: string } }
   | { type: 'DB_COUNT_TEXT_CACHE'; payload: undefined }
   | { type: 'DB_PURGE_TEXT_CACHE'; payload: { maxItems?: number; targetItems?: number } }
-  | { type: 'DB_ADD_FEATURE_VECTOR'; payload: { label: string; vector: [number, number, number, number, number] } }
+  | { type: 'DB_ADD_FEATURE_VECTOR'; payload: { label: string; vector: [number, number, number] } }
   | { type: 'DB_GET_FEATURE_VECTOR'; payload: { id: number } }
   | { type: 'DB_GET_FEATURE_VECTORS_BY_LABEL'; payload: { label: string } }
   | { type: 'DB_GET_ALL_FEATURE_VECTORS'; payload: undefined }
@@ -44,7 +44,7 @@ export const dbClient = {
   deleteTextCache: (hash: string) => sendDBMessage<void>({ type: 'DB_DELETE_TEXT_CACHE', payload: { hash } }),
   countTextCache: () => sendDBMessage<number>({ type: 'DB_COUNT_TEXT_CACHE', payload: undefined }),
   purgeOldTextCache: (options?: { maxItems?: number; targetItems?: number }) => sendDBMessage<void>({ type: 'DB_PURGE_TEXT_CACHE', payload: options || {} }),
-  addFeatureVector: (label: string, vector: [number, number, number, number, number]) => sendDBMessage<number>({ type: 'DB_ADD_FEATURE_VECTOR', payload: { label, vector } }),
+  addFeatureVector: (label: string, vector: [number, number, number]) => sendDBMessage<number>({ type: 'DB_ADD_FEATURE_VECTOR', payload: { label, vector } }),
   getFeatureVector: (id: number) => sendDBMessage<FeatureVectorEntry>({ type: 'DB_GET_FEATURE_VECTOR', payload: { id } }),
   getFeatureVectorsByLabel: (label: string) => sendDBMessage<FeatureVectorEntry[]>({ type: 'DB_GET_FEATURE_VECTORS_BY_LABEL', payload: { label } }),
   getAllFeatureVectors: () => sendDBMessage<FeatureVectorEntry[]>({ type: 'DB_GET_ALL_FEATURE_VECTORS', payload: undefined }),

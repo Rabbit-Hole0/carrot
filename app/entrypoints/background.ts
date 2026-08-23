@@ -83,10 +83,10 @@ export default defineBackground(() => {
 
       let seeded = 0;
       for (const entry of dataset.vectors) {
-        if (entry.vector.length === 5) {
+        if (entry.vector.length === 3) {
           const id = await addFeatureVector(
             entry.label,
-            entry.vector as [number, number, number, number, number],
+            entry.vector as [number, number, number],
           );
           if (id === undefined) {
             throw new Error(`Failed to insert vector ${entry.id}`);

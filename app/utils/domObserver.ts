@@ -16,11 +16,13 @@ const COUPANG_REVIEW_SELECTOR = [
   '.js_reviewArticleContent',
   '[data-component="review-content"]',
 ].join(', ');
-const MIN_TEXT_LENGTH = 15;
+/** 공백 정리 후 50자 이상인 텍스트만 AI 분석 대상으로 삼습니다. */
+const MIN_TEXT_LENGTH = 50;
 const SCROLL_DEBOUNCE_MS = 200;
 const CARROT_MASK_STYLE_ID = 'carrot-ai-mask-styles';
-const AI_SYMBOL_WEIGHT = 0.08;
-const SCORE_MODEL_VERSION = 'symbols-v1';
+/** 이모티콘 신호의 최종 점수 가산 한도: 최대 15%p. */
+const AI_SYMBOL_WEIGHT = 0.15;
+const SCORE_MODEL_VERSION = 'ko-ngram-symbol-v4';
 
 function ensureMaskStyles(): void {
   if (document.getElementById(CARROT_MASK_STYLE_ID)) return;
@@ -310,11 +312,9 @@ class DOMTextScanner {
     }
 
     if (isAi && this.userRules.showTooltip) {
-      const vocabulary = Math.round(metrics.ttr * 100);
       const variation = Math.round(metrics.burstiness * 100);
       const cliché = Math.round(metrics.ngram * 100);
       const reasons = [
-        `어휘 다양성 ${vocabulary}% - ${metrics.ttr < 0.5 ? '어휘 반복' : '어휘 다양성 양호'}`,
         `문장 변동성 ${variation}% - ${metrics.burstiness < 0.5 ? '변동성 낮음' : '변동성 높음'}`,
         `상투어 반복 ${cliché}%`,
       ];
@@ -357,7 +357,7 @@ class DOMTextScanner {
 
         // 2. Background DB Client 캐시 조회
         const cached = await dbClient.getTextCache(hash);
-        if (cached?.text === text && cached.vector?.length === 5) {
+        if (cached?.text === text && cached.vector?.length === 3) {
           const normalizedCachedText = cached.text.toLocaleLowerCase();
           const cachedBlockedWord = this.userRules.blockedWords.find((word) => normalizedCachedText.includes(word));
           const effectiveScore = cachedBlockedWord ? 1 : cached.score;
@@ -371,7 +371,7 @@ class DOMTextScanner {
           continue;
         }
 
-        // 3. 메트릭 추출 및 5차원 벡터 계산
+        // 3. 메트릭 추출 및 3차원 코사인 벡터 계산(N-gram 제외)
         const metrics = extractTextMetrics(text);
         const vector = extractFeatureVector(text);
 
@@ -382,11 +382,10 @@ class DOMTextScanner {
           : 0;
 
         // 5. 복합 AI 확률 점수 산출
-        //    score = 0.40*cosineMax + 0.20*(1-burstiness) + 0.20*ngram + 0.10*(1-ttr) + 0.10*(1-entropy)
+        //    score = 0.40*cosineMax + 0.20*(1-burstiness) + 0.20*ngram + 0.20*(1-entropy)
         const baseScore = computeCompositeAIScore({
           cosineMax,
           burstiness: metrics.burstiness,
-          ttr: metrics.ttr,
           entropy: metrics.entropy,
           ngram: metrics.ngram,
         });
