@@ -1,42 +1,35 @@
 2026 오픈소스 개발자대회 
 팀명: Rabbit Hole 
-프로젝트명: -  
-> On-Device 기반 초경량 AI 텍스트 감별 및 실시간 필터링 웹 확장 프로그램
-> 외부 서버 연동 없이 브라우저 로컬에서 AI 생성 컨텐츠를 감지하고, DOM 마스킹 및 XAI 툴팁을 제공합니다.
+프로젝트명: carrot   
+> AI 텍스트 감별 및 실시간 필터링 웹 확장 프로그램
+> 외부 서버 연동 없이 브라우저 로컬에서 AI 생성 컨텐츠를 감지하고, 
+DOM 마스킹 및 XAI 툴팁을 제공합니다.
 
 ---
 
 ## 목차
 1. [프로젝트 소개](#-프로젝트-소개)
-2. [시스템 아키텍처 및 폴더 구조](#-시스템-아키텍처-및-폴더-구조)
-3. [개발 환경 구성 및 패키지 설치](#-개발-환경-구성-및-패키지-설치)
-4. [실행 방법](#-실행-방법)
-5. [협업 가이드 및 Git 워크플로우](#-협업-가이드-및-git-워크플로우)
+2. [개발 환경 구성 및 패키지 설치](#-개발-환경-구성-및-패키지-설치)
+3. [실행 방법](#-실행-방법)
+4. [협업 가이드 및 Git 워크플로우](#-협업-가이드-및-git-워크플로우)
 
 ---
 
 ## 프로젝트 소개
 
-* **Privacy-First:** 웹 서핑 데이터를 외부로 전송하지 않는 온디바이스(On-Device) 연산
-* **Zero Server Cost:** 로컬 기반으로 서버 인프라 트래픽 비용 $0원
-* **Lightweight & Fast:** 5MB 이하의 정적데이터 및 결정 트리(Decision Tree) 기반 연산으로 RAM < 100MB, 연산 시간 < 15ms 유지
-* **Universal Compatibility:** React/Vue 기반 SPA 사이트 호환 (Shadow DOM 기반 스타일 격리 및 DOM 래핑)
+브라우저의 컨텐츠를 DOM 객체로 변환 후 
 
----
+(1) 문장 길이 변동성(Burstiness)
+(2) 어휘 다양성(TTR)
+(3) 문자 엔트로피, 
+(4) N-gram AI 상투어 패턴 정규식 
+(5) 단순 단어 대조 
 
-## 시스템 아키텍처 및 폴더 구조
+연산을 통한 1차 필터링을 합니다. 
 
-본 프로젝트는 역할별로 명확히 분리된 **통합 모노레포(Monorepo)** 구조를 따릅니다.
+이후 무거운 딥러닝 추론 없이 원본 컨텐츠와 AI 패턴 데이터를 
+각각 벡터 스토어 형태로 변환하여 두 비교군 간의 거리 유사도 검사 기반의 결정 트리 방식으로 최종 AI 확률 점수를 도출합니다.
 
-```text
-carrot/
-├── app/         # [APP] WXT 기반 브라우저 확장 프로그램 (TypeScript / Dexie.js)
-├── server/      # [SERVER] FastAPI 백엔드 (DB 연동 / API)
-├── model/       # [MODEL] N-gram, 피처 맵, Decision Tree 학습 및 export 파이프라인
-├── db/          # [DB] IndexDB 또는 SQLite 설정 및 DB 초기화 스크립트
-
-
-```
 
 ---
 
@@ -47,7 +40,6 @@ carrot/
 ### 1. 전제 조건 (Prerequisites)
 
 * Node.js v23.11.0+ 및 `pnpm` (`npm i -g pnpm`)
-* Python Python 3.10.0rc2+
 
 ---
 
@@ -58,48 +50,59 @@ carrot/
 ```bash
 cd app
 pnpm install
-cd ..
-
-```
-
-#### 2) SERVER (`server/`) - FastAPI 백엔드
-
-```bash
-cd server
-python -m venv .venv
-
-# 가상환경 활성화
-# macOS/Linux:
-source .venv/bin/activate
-# Windows:
-# .venv\Scripts\activate
-
-# Python 패키지 일괄 설치
-pip install -r requirements.txt
-deactivate
-cd ..
-
-```
-
-#### 3) MODEL (`model/`) - 벡터 스토어 변환 및 거리 유사도 검사 파이프라인
-
-```bash
-cd model
-python -m venv .venv
-
-# 가상환경 활성화
-source .venv/bin/activate
-
-# Python 패키지 일괄 설치
-pip install -r requirements.txt
-deactivate
-cd ..
 
 ```
 
 ---
 
 ## 실행 방법
+
+### 일반 사용자 
+
+Chrome
+
+1. Github 저장소의 Releases 클릭 
+2. 최신 버전 선택 
+3. Chrome용 ZIP 다운로드 
+4. ZIP 압축 해제 
+5. Chrome 주소창에 다음 텍스트 입력:
+
+text
+chrome://extensions 
+
+6. 우측 상단 개발자 모드 활성화 
+7.압축해제된 확장 프로그램을 로드 클릭 
+8. 압축 해제한 Chrome 폴더 선택 
+
+로드 후 
+
+시크릿 모드 사용시에는 
+
+chrome://extensions에서 해당 확장 프로그램 - 세부정보 탭 이동 후 
+'시크릿 모드에서 허용' 활성화 필요 
+
+### 개발자 
+
+1. git clone 후 /app 폴더에서 pnpm install 
+2. npm run build 
+3. 이후는 일반 사용자와 동일 
+
+
+### 사용자 설정 
+
+크룸 상단바의 확장 프로그램 버튼 클릭 후 해당 프로그램 선택 
+
+다음 기능을 제공합니다.  
+
+1. 감도 임계값 
+
+2. 커스텀 차단 단어 
+
+3. 예외 도메인 
+
+4. 콘텐츠 Blur 마스킹 비활성화/활성화 
+
+5. XAI 사유 툴팁 표시 비활성화/활성화 
 
 
 ```
