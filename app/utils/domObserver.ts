@@ -1,12 +1,14 @@
 import { generateSHA256 } from './crypto';
 import { calculateAISymbolSignal, extractFeatureVector, extractTextMetrics, type TextMetrics } from './vector';
+import { analyzeAiGrammar, type GrammarAnalysis } from './aiGrammar';
+import { analyzeDirectTextMatch, type DirectTextAnalysis } from './directTextMatcher';
+import { computeHybridAIScore } from './aiScoring';
 import { dbClient } from './messaging';
 import { defaultUserRules, isDomainExcluded, normalizeUserRules, type UserRules } from './settings';
 import {
   updateFeatureVectorCache,
   isFeatureVectorCacheLoaded,
   computeMaxCosineSimilarity,
-  computeCompositeAIScore,
 } from './cosine';
 
 const TARGET_SELECTOR = 'p, article, section, div, span, li, h1, h2, h3, h4, h5, h6';
@@ -20,9 +22,7 @@ const COUPANG_REVIEW_SELECTOR = [
 const MIN_TEXT_LENGTH = 50;
 const SCROLL_DEBOUNCE_MS = 200;
 const CARROT_MASK_STYLE_ID = 'carrot-ai-mask-styles';
-/** 이모티콘 신호의 최종 점수 가산 한도: 최대 15%p. */
-const AI_SYMBOL_WEIGHT = 0.15;
-const SCORE_MODEL_VERSION = 'ko-ngram-symbol-v4';
+const SCORE_MODEL_VERSION = 'ko-ngram-grammar-symbol-v6';
 
 function ensureMaskStyles(): void {
   if (document.getElementById(CARROT_MASK_STYLE_ID)) return;
@@ -290,7 +290,7 @@ class DOMTextScanner {
     }
   }
 
-  private applyAnalysisResult(el: Element, score: number, isAi: boolean, metrics: TextMetrics, blockedWord?: string): void {
+  private applyAnalysisResult(el: Element, score: number, isAi: boolean, metrics: TextMetrics, blockedWord?: string, grammar?: GrammarAnalysis, directText?: DirectTextAnalysis): void {
     const htmlElement = el as HTMLElement;
     if (!this.originalTitles.has(el)) this.originalTitles.set(el, htmlElement.title || null);
 
@@ -319,6 +319,8 @@ class DOMTextScanner {
         `상투어 반복 ${cliché}%`,
       ];
       if (blockedWord) reasons.unshift(`커스텀 차단 단어: ${blockedWord}`);
+      if (grammar && grammar.matches.length > 0) reasons.unshift(`정규식 AI 문법 ${grammar.matches.length}종 감지`);
+      if (directText && directText.matches.length > 0) reasons.unshift(`직접 대조 ${directText.matches.length}건`);
       htmlElement.title = `AI 확신도: ${Math.round(score * 100)}% (${reasons.join(', ')})\n클릭하면 Blur가 해제됩니다.`;
     } else {
       const originalTitle = this.originalTitles.get(el);
@@ -360,12 +362,22 @@ class DOMTextScanner {
         if (cached?.text === text && cached.vector?.length === 3) {
           const normalizedCachedText = cached.text.toLocaleLowerCase();
           const cachedBlockedWord = this.userRules.blockedWords.find((word) => normalizedCachedText.includes(word));
-          const effectiveScore = cachedBlockedWord ? 1 : cached.score;
+          const grammar = analyzeAiGrammar(text);
+          const directText = analyzeDirectTextMatch(text);
+          const cosineScore = isFeatureVectorCacheLoaded() ? computeMaxCosineSimilarity(cached.vector) : 0;
+          const hybrid = computeHybridAIScore({
+            cosineScore,
+            directText,
+            grammar,
+            metrics: cached.metrics,
+            symbolSignal: calculateAISymbolSignal(text),
+          });
+          const effectiveScore = cachedBlockedWord ? 1 : hybrid.score;
           const effectiveIsAi = cachedBlockedWord !== undefined || effectiveScore >= this.userRules.threshold;
           if (cached.score !== effectiveScore || cached.is_ai !== effectiveIsAi) {
             await dbClient.putTextCache({ ...cached, score: effectiveScore, is_ai: effectiveIsAi });
           }
-          this.applyAnalysisResult(el, effectiveScore, effectiveIsAi, cached.metrics, cachedBlockedWord);
+          this.applyAnalysisResult(el, effectiveScore, effectiveIsAi, cached.metrics, cachedBlockedWord, grammar, directText);
           const msg = `[Carrot] Cache Hit for hash ${hash.substring(0, 8)}... Score: ${effectiveScore} | threshold: ${this.userRules.threshold} | is_ai: ${effectiveIsAi}`;
           console.log(msg);
           continue;
@@ -381,16 +393,18 @@ class DOMTextScanner {
           ? computeMaxCosineSimilarity(vector)
           : 0;
 
-        // 5. 복합 AI 확률 점수 산출
-        //    score = 0.40*cosineMax + 0.20*(1-burstiness) + 0.20*ngram + 0.20*(1-entropy)
-        const baseScore = computeCompositeAIScore({
-          cosineMax,
-          burstiness: metrics.burstiness,
-          entropy: metrics.entropy,
-          ngram: metrics.ngram,
-        });
+        // 5. 벡터·직접 대조·정규식 반복·문체 신호를 하이브리드 결합
         const symbolSignal = calculateAISymbolSignal(text);
-        const score = Number(Math.min(baseScore + symbolSignal * AI_SYMBOL_WEIGHT, 1).toFixed(4));
+        const grammar = analyzeAiGrammar(text);
+        const directText = analyzeDirectTextMatch(text);
+        const hybrid = computeHybridAIScore({
+          cosineScore: cosineMax,
+          directText,
+          grammar,
+          metrics,
+          symbolSignal,
+        });
+        const score = hybrid.score;
 
         // 사용자 차단 단어는 확률 계산 결과와 무관하게 AI 콘텐츠로 판정합니다.
         const normalizedText = text.toLocaleLowerCase();
@@ -413,7 +427,7 @@ class DOMTextScanner {
           throw new Error(`DB verification failed for ${hash}`);
         }
 
-        this.applyAnalysisResult(el, finalScore, is_ai, metrics, matchedBlockedWord);
+        this.applyAnalysisResult(el, finalScore, is_ai, metrics, matchedBlockedWord, grammar);
         const msg = `[Carrot] Analyzed ${hash.substring(0, 8)}... | cosine: ${cosineMax.toFixed(3)} | score: ${finalScore.toFixed(3)} | threshold: ${this.userRules.threshold.toFixed(2)} | is_ai: ${is_ai} | metrics: ${JSON.stringify(metrics)}`;
         console.log(msg);
         if (is_ai) console.warn(`🥕 [Carrot AI DETECTED] ${hash.substring(0, 8)}... Score: ${finalScore.toFixed(3)}`);

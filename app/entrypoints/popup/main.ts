@@ -11,8 +11,8 @@ app.innerHTML = `
     <p class="description">AI 콘텐츠 필터링 규칙을 설정합니다.</p>
 
     <label class="field" for="threshold">
-      <span>감도 임계값 <output id="threshold-value">0.75</output></span>
-      <input id="threshold" type="range" min="0.50" max="0.95" step="0.01" value="0.75" />
+      <span>감도 임계값 <output id="threshold-value">0.60</output></span>
+      <input id="threshold" type="range" min="0.50" max="0.95" step="0.01" value="0.60" />
       <small>확률이 이 값 이상이면 AI 콘텐츠로 판정합니다.</small>
     </label>
 

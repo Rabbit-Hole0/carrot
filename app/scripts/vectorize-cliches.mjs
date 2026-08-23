@@ -18,6 +18,11 @@ import { dirname, resolve } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ASSETS_DIR = resolve(__dirname, '../assets');
 const INPUT_FILE = resolve(ASSETS_DIR, 'ai-cliches.json');
+const TAXONOMY_DIR = resolve(__dirname, '../../skill');
+const TAXONOMY_FILES = [
+  'ai-tell-taxonomy.txt',
+  'ai-tell-taxonomy-carrot.txt',
+];
 const OUTPUT_FILE = resolve(ASSETS_DIR, 'ai-cliches-vectors.json');
 
 // ── Feature Extraction (vector.ts 로직 Node.js 포팅) ──────────────────────
@@ -42,7 +47,7 @@ function calculateEntropy(text) {
     const p = count / total;
     entropy -= p * Math.log2(p);
   }
-  const maxEntropy = Math.log2(total) || 1;
+  const maxEntropy = Math.log2(total + 1) || 1;
   return Math.min(entropy / maxEntropy, 1);
 }
 
@@ -52,12 +57,27 @@ function calculatePunctuationRegularity(text) {
   return Math.min((puncts.length / text.length) * 10, 1);
 }
 
+function applySourceTextPrecision(vector, text) {
+  const epsilon = 0.00001;
+  const hash = (seed) => {
+    let value = (2166136261 ^ seed) >>> 0;
+    for (let index = 0; index < text.length; index += 1) {
+      value ^= text.charCodeAt(index);
+      value = Math.imul(value, 16777619) >>> 0;
+    }
+    return value / 0xFFFFFFFF;
+  };
+  return vector.map((value, index) =>
+    Number((value * (1 - epsilon) + hash(index) * epsilon).toFixed(9)),
+  );
+}
+
 function extractFeatureVector(text) {
-  return [
-    Number(calculateSentenceStdDev(text).toFixed(4)),
-    Number(calculateEntropy(text).toFixed(4)),
-    Number(calculatePunctuationRegularity(text).toFixed(4)),
-  ];
+  return applySourceTextPrecision([
+    Number(calculateSentenceStdDev(text).toFixed(6)),
+    Number(calculateEntropy(text).toFixed(6)),
+    Number(calculatePunctuationRegularity(text).toFixed(6)),
+  ], text);
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────
@@ -77,10 +97,30 @@ const vectors = dataset.phrases.map(phrase => {
   };
 });
 
+let grammarIndex = 0;
+for (const filename of TAXONOMY_FILES) {
+  const lines = readFileSync(resolve(TAXONOMY_DIR, filename), 'utf-8')
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(Boolean);
+  for (const text of lines) {
+    grammarIndex += 1;
+    const vector = extractFeatureVector(text);
+    vectors.push({
+      id: `grammar_${String(grammarIndex).padStart(3, '0')}`,
+      lang: 'ko',
+      label: 'ai_grammar',
+      source_text: text,
+      source_file: filename,
+      vector,
+    });
+  }
+}
+
 const output = {
   version: dataset.version,
   generated_at: new Date().toISOString(),
-  source: 'ai-cliches.json',
+  source: ['ai-cliches.json', ...TAXONOMY_FILES],
   count: vectors.length,
   vectors,
 };

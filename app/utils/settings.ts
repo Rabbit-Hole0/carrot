@@ -15,7 +15,7 @@ export interface UserRules {
 }
 
 export const defaultSettings: UserSettings = {
-  threshold: 0.75,
+  threshold: 0.6,
   autoMask: true,
   showTooltip: true,
   blurIntensity: 5,
@@ -33,7 +33,7 @@ export const defaultUserRules: UserRules = {
 export function normalizeUserRules(value: Partial<UserRules> | undefined): UserRules {
   const threshold = Number(value?.threshold ?? defaultUserRules.threshold);
   return {
-    threshold: Number.isFinite(threshold) ? Math.min(0.95, Math.max(0.5, threshold)) : 0.75,
+    threshold: Number.isFinite(threshold) ? Math.min(0.95, Math.max(0.5, threshold)) : 0.6,
     blockedWords: Array.isArray(value?.blockedWords)
       ? [...new Set(value!.blockedWords.map((word) => String(word).trim().toLocaleLowerCase()).filter(Boolean))]
       : [],

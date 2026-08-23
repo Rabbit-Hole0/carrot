@@ -1,8 +1,12 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-23T10:25:07.980Z",
-  "source": "ai-cliches.json",
-  "count": 60,
+  "generated_at": "2026-08-23T12:59:19.359Z",
+  "source": [
+    "ai-cliches.json",
+    "ai-tell-taxonomy.txt",
+    "ai-tell-taxonomy-carrot.txt"
+  ],
+  "count": 174,
   "vectors": [
     {
       "id": "ko_01",
@@ -10,9 +14,9 @@
       "label": "ai_cliche",
       "source_text": "이 리뷰가 도움이 되셨다면 도움이 돼요를 눌러주세요.",
       "vector": [
-        0,
-        0.8982,
-        0.3448
+        0.000006269,
+        0.840540918,
+        0.344832441
       ]
     },
     {
@@ -21,9 +25,9 @@
       "label": "ai_cliche",
       "source_text": "제 리뷰가 도움이 되셨다면 [도움이 돼요] 버튼을 눌러주시면 큰 힘이 됩니다.",
       "vector": [
-        0,
-        0.9474,
-        0.6977
+        0.000004073,
+        0.914267501,
+        0.697672014
       ]
     },
     {
@@ -32,9 +36,9 @@
       "label": "ai_cliche",
       "source_text": "유용했다면 '도움이 되었어요' 버튼을 눌러주시면 큰 힘이 됩니다.",
       "vector": [
-        0,
-        1,
-        0.8333
+        0.000004815,
+        0.946390976,
+        0.833330319
       ]
     },
     {
@@ -43,9 +47,9 @@
       "label": "ai_cliche",
       "source_text": "도움이 되셨다면 아래에 있는 [도움이 돼요] 버튼을 한 번만 꾹 눌러주시면 감사하겠습니다.",
       "vector": [
-        0,
-        0.9535,
-        0.6
+        0.000008483,
+        0.923747208,
+        0.599998461
       ]
     },
     {
@@ -54,9 +58,9 @@
       "label": "ai_cliche",
       "source_text": "제 후기가 도움이 되었다면 [도움이 돼요] 버튼을 클릭해 주세요.",
       "vector": [
-        0,
-        0.9299,
-        0.8333
+        0.000006765,
+        0.887339687,
+        0.833329362
       ]
     },
     {
@@ -65,9 +69,9 @@
       "label": "ai_cliche",
       "source_text": "도움이 돼요 꼭 한 번만 눌러주세요.",
       "vector": [
-        0,
-        1,
-        0.5
+        0.000002071,
+        0.920773819,
+        0.500003158
       ]
     },
     {
@@ -76,9 +80,9 @@
       "label": "ai_cliche",
       "source_text": "제 후기가 마음에 드시면 도움이 돼요 버튼을 꾹 눌러주시길 부탁드려요.",
       "vector": [
-        0,
-        1,
-        0.2564
+        0.000004925,
+        0.96024872,
+        0.256411059
       ]
     },
     {
@@ -87,9 +91,9 @@
       "label": "ai_cliche",
       "source_text": "제 솔직한 리뷰가 구매 결정에 도움이 되셨다면 도움 버튼을 한 번 눌러주세요.",
       "vector": [
-        0,
-        1,
-        0.2326
+        0.000009214,
+        0.96879022,
+        0.232558002
       ]
     },
     {
@@ -98,9 +102,9 @@
       "label": "ai_cliche",
       "source_text": "조금이라도 도움이 되셨다면 하단의 도움이 돼요 버튼을 꾸욱 눌러주시면 감사하겠습니다.",
       "vector": [
-        0,
-        0.9398,
-        0.2128
+        0.000004357,
+        0.902439382,
+        0.212770622
       ]
     },
     {
@@ -109,9 +113,9 @@
       "label": "ai_cliche",
       "source_text": "도움이 돼요 버튼을 눌러주시면 리뷰 작성자에게 큰 힘이 됩니다.",
       "vector": [
-        0,
-        1,
-        0.2857
+        0.000006573,
+        0.954239963,
+        0.285714915
       ]
     },
     {
@@ -120,9 +124,9 @@
       "label": "ai_cliche",
       "source_text": "급하신 분들은 맨 아래 총평만 봐주세요.",
       "vector": [
-        0,
-        1,
-        0.4545
+        0.000003277,
+        0.920775553,
+        0.454549213
       ]
     },
     {
@@ -131,9 +135,9 @@
       "label": "ai_cliche",
       "source_text": "바쁘신 분들은 마지막 총평만 확인하셔도 됩니다.",
       "vector": [
-        0,
-        1,
-        0.3846
+        0.000004577,
+        0.920780789,
+        0.384618842
       ]
     },
     {
@@ -142,9 +146,9 @@
       "label": "ai_cliche",
       "source_text": "여러 제품을 비교해 보던 중 가격과 구성이 괜찮아 보여 선택하게 되었습니다.",
       "vector": [
-        0,
-        1,
-        0.2381
+        0.000005463,
+        0.964975691,
+        0.238095861
       ]
     },
     {
@@ -153,9 +157,9 @@
       "label": "ai_cliche",
       "source_text": "평소 자주 사용하던 믿을 수 있는 브랜드라 고민 없이 구매했습니다.",
       "vector": [
-        0,
-        1,
-        0.2703
+        0.000008734,
+        0.960247202,
+        0.270276882
       ]
     },
     {
@@ -164,9 +168,9 @@
       "label": "ai_cliche",
       "source_text": "처음에는 기대에 맞지 않을까 걱정했지만 실제로 사용해 보니 만족스러웠습니다.",
       "vector": [
-        0,
-        1,
-        0.2381
+        0.000003326,
+        0.954237705,
+        0.238098193
       ]
     },
     {
@@ -175,9 +179,9 @@
       "label": "ai_cliche",
       "source_text": "처음에는 다소 낯설지 않을까 걱정했는데 오히려 부담 없이 사용할 수 있었습니다.",
       "vector": [
-        0,
-        1,
-        0.2273
+        0.000006518,
+        0.96497558,
+        0.227275626
       ]
     },
     {
@@ -186,9 +190,9 @@
       "label": "ai_cliche",
       "source_text": "막상 사용해 보니 생각했던 것보다 훨씬 만족스러운 제품이었습니다.",
       "vector": [
-        0,
-        1,
-        0.2778
+        0.000003313,
+        0.946388723,
+        0.277777179
       ]
     },
     {
@@ -197,9 +201,9 @@
       "label": "ai_cliche",
       "source_text": "처음에는 조금 심심하게 느껴질 수 있지만 사용할수록 장점이 잘 느껴졌습니다.",
       "vector": [
-        0,
-        1,
-        0.2381
+        0.000008226,
+        0.960246703,
+        0.238100489
       ]
     },
     {
@@ -208,9 +212,9 @@
       "label": "ai_cliche",
       "source_text": "매일 사용하기에도 부담이 없고 누구나 무난하게 사용할 수 있습니다.",
       "vector": [
-        0,
-        1,
-        0.2703
+        0.000007134,
+        0.954235532,
+        0.270270168
       ]
     },
     {
@@ -219,9 +223,9 @@
       "label": "ai_cliche",
       "source_text": "가족 모두 부담 없이 사용할 수 있다는 점도 만족스러웠습니다.",
       "vector": [
-        0,
-        1,
-        0.2941
+        0.000001558,
+        0.954243362,
+        0.294124561
       ]
     },
     {
@@ -230,9 +234,9 @@
       "label": "ai_cliche",
       "source_text": "직접 사용해 보니 기대했던 것보다 만족도가 높은 제품이었습니다.",
       "vector": [
-        0,
-        1,
-        0.2857
+        0.000007362,
+        0.946389598,
+        0.285715322
       ]
     },
     {
@@ -241,9 +245,9 @@
       "label": "ai_cliche",
       "source_text": "무엇보다 사용하기 편리하다는 점이 가장 마음에 들었습니다.",
       "vector": [
-        0,
-        1,
-        0.3125
+        0.000002598,
+        0.935778231,
+        0.312500816
       ]
     },
     {
@@ -252,9 +256,9 @@
       "label": "ai_cliche",
       "source_text": "하나만 있어도 여러 가지 방식으로 활용할 수 있어 정말 편리했습니다.",
       "vector": [
-        0,
-        1,
-        0.2632
+        7.02e-7,
+        0.960252007,
+        0.263165039
       ]
     },
     {
@@ -263,9 +267,9 @@
       "label": "ai_cliche",
       "source_text": "다양한 용도로 활용할 수 있어 일상에서 자주 손이 가는 제품입니다.",
       "vector": [
-        0,
-        1,
-        0.2703
+        0.000006257,
+        0.960250296,
+        0.270276626
       ]
     },
     {
@@ -274,9 +278,9 @@
       "label": "ai_cliche",
       "source_text": "그대로 사용해도 좋지만 다른 재료나 제품과 함께 사용하면 더욱 만족스럽습니다.",
       "vector": [
-        0,
-        1,
-        0.2326
+        0.000004233,
+        0.960251601,
+        0.232559319
       ]
     },
     {
@@ -285,9 +289,9 @@
       "label": "ai_cliche",
       "source_text": "눈으로 직접 확인하기는 어렵지만 안심하고 사용할 수 있다는 점이 좋았습니다.",
       "vector": [
-        0,
-        1,
-        0.2381
+        0.000003156,
+        0.960250031,
+        0.238098849
       ]
     },
     {
@@ -296,9 +300,9 @@
       "label": "ai_cliche",
       "source_text": "개인에 따라 다소 아쉽게 느껴질 수 있지만 크게 불편한 정도는 아니었습니다.",
       "vector": [
-        0,
-        1,
-        0.2381
+        0.000007312,
+        0.964982187,
+        0.238101746
       ]
     },
     {
@@ -307,9 +311,9 @@
       "label": "ai_cliche",
       "source_text": "처음에는 다소 불편할 수 있지만 간단한 방법으로 충분히 해결할 수 있습니다.",
       "vector": [
-        0,
-        0.9474,
-        0.2381
+        0.000009214,
+        0.914267659,
+        0.238096678
       ]
     },
     {
@@ -318,9 +322,9 @@
       "label": "ai_cliche",
       "source_text": "아쉬운 점이 있다면 취향에 따라 다르게 느껴질 수 있다는 점입니다.",
       "vector": [
-        0,
-        1,
-        0.2703
+        0.000009639,
+        0.96024719,
+        0.270272556
       ]
     },
     {
@@ -329,9 +333,9 @@
       "label": "ai_cliche",
       "source_text": "개인적으로 크게 아쉬운 점은 없었습니다.",
       "vector": [
-        0,
-        1,
-        0.4545
+        0.000001002,
+        0.898241325,
+        0.454541354
       ]
     },
     {
@@ -340,9 +344,9 @@
       "label": "ai_cliche",
       "source_text": "열심히 일해서 번 돈으로 직접 구매하고 꼼꼼히 비교한 솔직한 후기입니다.",
       "vector": [
-        0,
-        1,
-        0.25
+        0.000006962,
+        0.960249063,
+        0.250000928
       ]
     },
     {
@@ -351,9 +355,9 @@
       "label": "ai_cliche",
       "source_text": "✅ 구매 이유 ✅ 사용 후기 ✅ 장점 ✅ 아쉬운 점 ✅ 총평",
       "vector": [
-        0,
-        1,
-        0
+        0.000002966,
+        0.946392814,
+        0.000004047
       ]
     },
     {
@@ -362,9 +366,9 @@
       "label": "ai_cliche",
       "source_text": "✔ 제품 특징 ✔ 사용 방법 ✔ 장점 ✔ 단점 ✔ 재구매 의사",
       "vector": [
-        0,
-        1,
-        0
+        0.000007263,
+        0.946387269,
+        0.000008347
       ]
     },
     {
@@ -373,9 +377,9 @@
       "label": "ai_cliche",
       "source_text": "✨ 제품 정보 ✨ 직접 사용해 본 솔직 후기 ✨ 총평",
       "vector": [
-        0,
-        1,
-        0
+        0.000001714,
+        0.946391348,
+        0.00000628
       ]
     },
     {
@@ -384,9 +388,9 @@
       "label": "ai_cliche",
       "source_text": "⬇️ 이런 분들께 추천합니다.",
       "vector": [
-        0,
-        1,
-        0.625
+        0.000005273,
+        0.792481061,
+        0.624995401
       ]
     },
     {
@@ -395,9 +399,9 @@
       "label": "ai_cliche",
       "source_text": "⭐ 총평 및 재구매 의사",
       "vector": [
-        0,
-        1,
-        0
+        8.6e-7,
+        0.861351668,
+        0.000001823
       ]
     },
     {
@@ -406,9 +410,9 @@
       "label": "ai_cliche",
       "source_text": "【장점】 【아쉬운 점】 【총평】",
       "vector": [
-        0,
-        1,
-        0
+        0.000009003,
+        0.861348399,
+        0.000004034
       ]
     },
     {
@@ -417,9 +421,9 @@
       "label": "ai_cliche",
       "source_text": "[구매 동기] [제품 특징] [사용 후기] [총평]",
       "vector": [
-        0,
-        1,
-        1
+        0.000002998,
+        0.935779149,
+        0.999992847
       ]
     },
     {
@@ -428,9 +432,9 @@
       "label": "ai_cliche",
       "source_text": "좋은 하루 보내시고 즐거운 쇼핑 하세요.",
       "vector": [
-        0,
-        1,
-        0.4545
+        0.000005461,
+        0.920779074,
+        0.454542707
       ]
     },
     {
@@ -439,9 +443,9 @@
       "label": "ai_cliche",
       "source_text": "모두 즐거운 쇼핑 하시고 행복한 하루 보내세요.",
       "vector": [
-        0,
-        1,
-        0.3846
+        0.000002884,
+        0.935783377,
+        0.384612647
       ]
     },
     {
@@ -450,9 +454,9 @@
       "label": "ai_cliche",
       "source_text": "리뷰를 잘 쓰지는 못하지만 구매에 조금이라도 도움이 된다면 만족합니다.",
       "vector": [
-        0,
-        1,
-        0.2564
+        0.000004458,
+        0.954235378,
+        0.256414034
       ]
     },
     {
@@ -461,9 +465,9 @@
       "label": "ai_cliche",
       "source_text": "리뷰를 잘 쓰지도 못하고 짧은 글이지만 구매하시는 데 도움이 된다면 저는 그걸로 만족합니다.",
       "vector": [
-        0,
-        1,
-        0.1961
+        0.000003288,
+        0.971912255,
+        0.196079597
       ]
     },
     {
@@ -472,9 +476,9 @@
       "label": "ai_cliche",
       "source_text": "###",
       "vector": [
-        0,
-        0,
-        1
+        0.000008661,
+        0.000009142,
+        0.999997318
       ]
     },
     {
@@ -483,9 +487,9 @@
       "label": "ai_cliche",
       "source_text": "**",
       "vector": [
-        0,
-        0,
-        1
+        0.000001557,
+        0.000009916,
+        0.999991557
       ]
     },
     {
@@ -494,9 +498,9 @@
       "label": "ai_cliche",
       "source_text": "&quot;",
       "vector": [
-        0,
-        0,
-        1
+        0.000007668,
+        0.000004032,
+        0.999997229
       ]
     },
     {
@@ -505,9 +509,9 @@
       "label": "ai_cliche",
       "source_text": "&amp;",
       "vector": [
-        0,
-        0,
-        1
+        0.000008042,
+        0.00000186,
+        0.99999657
       ]
     },
     {
@@ -516,9 +520,9 @@
       "label": "ai_cliche",
       "source_text": "&amp;amp;",
       "vector": [
-        0,
-        0,
-        1
+        0.000001636,
+        0.000004283,
+        0.999991745
       ]
     },
     {
@@ -527,9 +531,9 @@
       "label": "ai_cliche",
       "source_text": "&lt;",
       "vector": [
-        0,
-        0,
-        1
+        0.000005958,
+        0.00000809,
+        0.999996802
       ]
     },
     {
@@ -538,9 +542,9 @@
       "label": "ai_cliche",
       "source_text": "&gt;",
       "vector": [
-        0,
-        0,
-        1
+        0.000004307,
+        0.000004735,
+        0.999999972
       ]
     },
     {
@@ -549,9 +553,9 @@
       "label": "ai_cliche",
       "source_text": "<br>",
       "vector": [
-        0,
-        0,
-        1
+        0.000002413,
+        0.000002103,
+        0.999993457
       ]
     },
     {
@@ -560,9 +564,9 @@
       "label": "ai_cliche",
       "source_text": "☆",
       "vector": [
-        0,
-        0,
-        0
+        1.26e-7,
+        8.7e-8,
+        4.8e-8
       ]
     },
     {
@@ -571,9 +575,9 @@
       "label": "ai_cliche",
       "source_text": "■■■■■■■■■■■■■■■",
       "vector": [
-        0,
-        0,
-        0
+        0.000006311,
+        0.000007298,
+        0.000009293
       ]
     },
     {
@@ -582,9 +586,9 @@
       "label": "ai_cliche",
       "source_text": "───☾ 총평 ☽───",
       "vector": [
-        0,
-        0,
-        0
+        0.000005978,
+        0.000006552,
+        2.6e-7
       ]
     },
     {
@@ -593,9 +597,9 @@
       "label": "ai_cliche",
       "source_text": "╔═══.·:·.☽✧ ✦ ✧☾.·:·.═══╗",
       "vector": [
-        0.0294,
-        0,
-        1
+        0.029395479,
+        0.000003983,
+        0.999992849
       ]
     },
     {
@@ -604,9 +608,9 @@
       "label": "ai_cliche",
       "source_text": "╚═══.·:·.☽✧ ✦ ✧☾.·:·.═══╝",
       "vector": [
-        0.0294,
-        0,
-        1
+        0.029399627,
+        0.000005636,
+        0.999996182
       ]
     },
     {
@@ -615,9 +619,9 @@
       "label": "ai_cliche",
       "source_text": "･ﾟﾟ･*:｡.｡:*ﾟ:*:✧･ﾟ: *✧･ﾟ:*",
       "vector": [
-        0.11,
-        0,
-        1
+        0.110008066,
+        0.000006654,
+        0.999990933
       ]
     },
     {
@@ -626,9 +630,9 @@
       "label": "ai_cliche",
       "source_text": "【장점】",
       "vector": [
-        0,
-        0,
-        0
+        0.000006017,
+        0.000006269,
+        0.000002762
       ]
     },
     {
@@ -637,9 +641,9 @@
       "label": "ai_cliche",
       "source_text": "【아쉬운 점】",
       "vector": [
-        0,
-        1,
-        0
+        0.00000786,
+        0.630928749,
+        5e-9
       ]
     },
     {
@@ -648,9 +652,9 @@
       "label": "ai_cliche",
       "source_text": "[구매동기]",
       "vector": [
-        0,
-        0,
-        1
+        0.000008036,
+        0.000003818,
+        0.999994946
       ]
     },
     {
@@ -659,9 +663,1377 @@
       "label": "ai_cliche",
       "source_text": "[총평]",
       "vector": [
-        0,
-        0,
-        1
+        0.000003417,
+        9.01e-7,
+        0.999998348
+      ]
+    },
+    {
+      "id": "grammar_001",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI 규제에 대해 논의할 필요가 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008698,
+        0.920775074,
+        0.000008009
+      ]
+    },
+    {
+      "id": "grammar_002",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 문제에 있어서 중요한 것은 속도다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000006794,
+        0.920776501,
+        0.000003937
+      ]
+    },
+    {
+      "id": "grammar_003",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "확장성이 뛰어나다는 점에서 의미가 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005957,
+        0.898244752,
+        0.000009114
+      ]
+    },
+    {
+      "id": "grammar_004",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "보안과 관련하여 주의해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004177,
+        0.86134883,
+        0.000001727
+      ]
+    },
+    {
+      "id": "grammar_005",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "데이터에 기반하여 판단한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000003622,
+        0.792478273,
+        0.000001272
+      ]
+    },
+    {
+      "id": "grammar_006",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "기존 사례를 바탕으로 결론을 내린다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007327,
+        0.898236044,
+        0.000006806
+      ]
+    },
+    {
+      "id": "grammar_007",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 제품은 강한 경쟁력을 가지고 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        9.45e-7,
+        0.920782312,
+        0.000001334
+      ]
+    },
+    {
+      "id": "grammar_008",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 결과는 신뢰할 만한 것으로 판단되어진다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009008,
+        0.920781582,
+        0.000003186
+      ]
+    },
+    {
+      "id": "grammar_009",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI에 의해 생성된 이미지가 공개됐다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        5.21e-7,
+        0.898238142,
+        0.000003787
+      ]
+    },
+    {
+      "id": "grammar_010",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 기능을 사용하면 효율을 높일 수 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000001939,
+        0.935784371,
+        0.000002295
+      ]
+    },
+    {
+      "id": "grammar_011",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "고객 만족을 위해 지속적으로 노력한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008677,
+        0.898240596,
+        0.000002574
+      ]
+    },
+    {
+      "id": "grammar_012",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "양측의 합의가 이루어졌다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002493,
+        0.792476421,
+        0.000003839
+      ]
+    },
+    {
+      "id": "grammar_013",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI 기술 발전 속도 가속화가 산업을 바꾼다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009497,
+        0.935779189,
+        0.000008867
+      ]
+    },
+    {
+      "id": "grammar_014",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "그는 결과를 보고했다. 그리고 자리에 앉았다.",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008901,
+        0.920777201,
+        0.79999267
+      ]
+    },
+    {
+      "id": "grammar_015",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 전략은 새로운 가능성을 제공한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007993,
+        0.898243475,
+        6.98e-7
+      ]
+    },
+    {
+      "id": "grammar_016",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "그는 자리에 앉았다. 그는 한숨을 쉬었다.",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007604,
+        0.80204412,
+        0.869564902
+      ]
+    },
+    {
+      "id": "grammar_017",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "사고를 일으킨 화학물질을 생산한 회사에서 일했던 남자를 만났다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000889,
+        0.946394742,
+        0.000007388
+      ]
+    },
+    {
+      "id": "grammar_018",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "회의에서의 논의가 길어졌다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000896,
+        0.792476021,
+        0.000005174
+      ]
+    },
+    {
+      "id": "grammar_019",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "긴장으로부터의 해방을 경험했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        4.45e-7,
+        0.792480712,
+        0.000008557
+      ]
+    },
+    {
+      "id": "grammar_020",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "인공지능(AI)과 거대언어모델(LLM)을 비교한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000001604,
+        0.792480696,
+        0.999994764
+      ]
+    },
+    {
+      "id": "grammar_021",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "사용자에게 seamless하고 robust한 경험을 제공한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002512,
+        0.898244009,
+        0.000001681
+      ]
+    },
+    {
+      "id": "grammar_022",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "영어 문장을 인용하고 번역도 병기한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005755,
+        0.898242315,
+        0.000008942
+      ]
+    },
+    {
+      "id": "grammar_023",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AGI라고 알려진 범용 인공지능",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000781,
+        0.861345387,
+        0.000005373
+      ]
+    },
+    {
+      "id": "grammar_024",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "첫째, 원인이다. 둘째, 과정이다. 셋째, 결과다.",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.009429131,
+        0.920781997,
+        0.999991646
+      ]
+    },
+    {
+      "id": "grammar_025",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "- 첫 번째 항목을 확인한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005664,
+        0.861350727,
+        0.000009945
+      ]
+    },
+    {
+      "id": "grammar_026",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "- 두 번째 항목을 검토한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        9.96e-7,
+        0.861346968,
+        0.000004925
+      ]
+    },
+    {
+      "id": "grammar_027",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "## 도입",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009168,
+        0.000004925,
+        0.999995228
+      ]
+    },
+    {
+      "id": "grammar_028",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "## 본론",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004125,
+        0.000004153,
+        0.999991732
+      ]
+    },
+    {
+      "id": "grammar_029",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "## 결론",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005047,
+        0.000003186,
+        0.99999081
+      ]
+    },
+    {
+      "id": "grammar_030",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 섹션에서는 핵심 내용을 다룬다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005406,
+        0.898240389,
+        0.000002859
+      ]
+    },
+    {
+      "id": "grammar_031",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "먼저 문제를 살핀다. 반면 대안은 다르다. 결국 선택해야 한다.",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002733,
+        0.954238185,
+        0.85713909
+      ]
+    },
+    {
+      "id": "grammar_032",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "독점인가, 확산인가",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008734,
+        0.630930026,
+        0.999992576
+      ]
+    },
+    {
+      "id": "grammar_033",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "1) 표준화 2) 자동화 3) 검증",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008953,
+        0.920777167,
+        0.999992335
+      ]
+    },
+    {
+      "id": "grammar_034",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "서론: 제조업의 미래",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004871,
+        0.792477208,
+        0.909088291
+      ]
+    },
+    {
+      "id": "grammar_035",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI는 빠르게 발전하지만, 기업의 대응은 더디다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008684,
+        0.920781395,
+        0.384612282
+      ]
+    },
+    {
+      "id": "grammar_036",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI는 빠르게 발전하면서, 산업이 변한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000003196,
+        0.898236071,
+        0.454548873
+      ]
+    },
+    {
+      "id": "grammar_037",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "결론적으로 이 방안을 채택해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        9.67e-7,
+        0.898243393,
+        0.000005203
+      ]
+    },
+    {
+      "id": "grammar_038",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "요약하면 핵심은 비용 절감이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002049,
+        0.861351249,
+        0.000008504
+      ]
+    },
+    {
+      "id": "grammar_039",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "종합하면 변화가 필요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000001565,
+        0.792479263,
+        0.000004987
+      ]
+    },
+    {
+      "id": "grammar_040",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "정리하자면 장기적인 준비가 필요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000132,
+        0.86135301,
+        0.000006723
+      ]
+    },
+    {
+      "id": "grammar_041",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "따라서 지금 행동해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        2.36e-7,
+        0.86135372,
+        0.000008045
+      ]
+    },
+    {
+      "id": "grammar_042",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "그러므로 기준을 새로 세워야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004832,
+        0.898238962,
+        0.000002909
+      ]
+    },
+    {
+      "id": "grammar_043",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 변화는 매우 중요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008634,
+        0.861348672,
+        0.000009572
+      ]
+    },
+    {
+      "id": "grammar_044",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 사실을 반드시 기억해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000003626,
+        0.898240003,
+        0.000009024
+      ]
+    },
+    {
+      "id": "grammar_045",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 결과가 시사하는 바가 크다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008434,
+        0.898243236,
+        0.000002343
+      ]
+    },
+    {
+      "id": "grammar_046",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 성과는 주목할 만하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002205,
+        0.861345997,
+        0.000006912
+      ]
+    },
+    {
+      "id": "grammar_047",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 문제는 간과할 수 없다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        2.3e-8,
+        0.898235302,
+        0.000005487
+      ]
+    },
+    {
+      "id": "grammar_048",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 위험은 무시할 수 없다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004713,
+        0.898235659,
+        0.000006761
+      ]
+    },
+    {
+      "id": "grammar_049",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 문제는 크게 세 가지로 나눌 수 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004838,
+        0.946394664,
+        0.000007036
+      ]
+    },
+    {
+      "id": "grammar_050",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "다음과 같은 특징을 가진다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000006819,
+        0.861349481,
+        0.000001869
+      ]
+    },
+    {
+      "id": "grammar_051",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "혁신적인 기술을 도입했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000006363,
+        0.792477328,
+        0.000005038
+      ]
+    },
+    {
+      "id": "grammar_052",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "획기적인 변화가 시작됐다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002558,
+        0.792483,
+        0.000007576
+      ]
+    },
+    {
+      "id": "grammar_053",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "전례 없는 성장을 기록했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000003883,
+        0.861344619,
+        6.29e-7
+      ]
+    },
+    {
+      "id": "grammar_054",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "압도적인 성과를 달성했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        8.9e-7,
+        0.792482384,
+        9.04e-7
+      ]
+    },
+    {
+      "id": "grammar_055",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "새로운 장을 열었다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008113,
+        0.792474144,
+        0.000008959
+      ]
+    },
+    {
+      "id": "grammar_056",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "새로운 시대가 도래했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002678,
+        0.792476127,
+        0.00000113
+      ]
+    },
+    {
+      "id": "grammar_057",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "양쪽 모두 일리가 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002987,
+        0.861347063,
+        0.000007769
+      ]
+    },
+    {
+      "id": "grammar_058",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "장점도 있지만 단점도 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002662,
+        0.861350552,
+        0.000006174
+      ]
+    },
+    {
+      "id": "grammar_059",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "신중하게 접근해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000003035,
+        0.79247693,
+        0.00000389
+      ]
+    },
+    {
+      "id": "grammar_060",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "균형 잡힌 시각이 중요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        2.2e-8,
+        0.861344585,
+        0.000009038
+      ]
+    },
+    {
+      "id": "grammar_061",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이는 중요한 의미를 가진다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009118,
+        0.861353727,
+        0.000008862
+      ]
+    },
+    {
+      "id": "grammar_062",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 관점에서 보면 해답이 보인다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009927,
+        0.898237362,
+        0.000002129
+      ]
+    },
+    {
+      "id": "grammar_063",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 점에서 차이가 난다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007743,
+        0.86134555,
+        0.000004106
+      ]
+    },
+    {
+      "id": "grammar_064",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 말은 결국 변화가 필요하다는 뜻이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005729,
+        0.920778688,
+        0.000005449
+      ]
+    },
+    {
+      "id": "grammar_065",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "즉, 핵심은 실행력이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005853,
+        0.792481953,
+        0.833332026
+      ]
+    },
+    {
+      "id": "grammar_066",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "문제의 원인은 데이터 부족인 것이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000006462,
+        0.898236359,
+        0.00000337
+      ]
+    },
+    {
+      "id": "grammar_067",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "핵심은 속도가 늦다는 점에 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000004831,
+        0.898238797,
+        0.000004128
+      ]
+    },
+    {
+      "id": "grammar_068",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 결과는 비용이 증가했다는 뜻이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000001404,
+        0.898237061,
+        0.00000167
+      ]
+    },
+    {
+      "id": "grammar_069",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "문제를 해결할 필요가 있다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000008301,
+        0.861346026,
+        0.000006326
+      ]
+    },
+    {
+      "id": "grammar_070",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "기업은 기준을 마련해야 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000009697,
+        0.861350711,
+        0.000006759
+      ]
+    },
+    {
+      "id": "grammar_071",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "추가 검토가 요구된다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002842,
+        0.792474605,
+        0.000008462
+      ]
+    },
+    {
+      "id": "grammar_072",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "혁신이 필요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002834,
+        0.630929647,
+        0.000005403
+      ]
+    },
+    {
+      "id": "grammar_073",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "변화가 필요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000204,
+        0.630933186,
+        0.000001369
+      ]
+    },
+    {
+      "id": "grammar_074",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "모델의 추론 능력이 향상됐다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000612,
+        0.861349909,
+        0.000004912
+      ]
+    },
+    {
+      "id": "grammar_075",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "매우 중요한 핵심적인 역할을 한다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007239,
+        0.898240368,
+        0.000003136
+      ]
+    },
+    {
+      "id": "grammar_076",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "지속적이고 꾸준한 노력이 필요하다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007707,
+        0.861350044,
+        0.000007219
+      ]
+    },
+    {
+      "id": "grammar_077",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "구조적 변화가 발생했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000001937,
+        0.792475474,
+        0.000008336
+      ]
+    },
+    {
+      "id": "grammar_078",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "기술적 안정성을 확보했다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000007627,
+        0.792473461,
+        0.000004096
+      ]
+    },
+    {
+      "id": "grammar_079",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "'핵심 개념'을 먼저 살펴보자",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.00000213,
+        0.861354161,
+        0.999999991
+      ]
+    },
+    {
+      "id": "grammar_080",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "AI는 도구 — 그 이상도 이하도 아닌 — 이다",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000005836,
+        0.935781717,
+        1.4e-8
+      ]
+    },
+    {
+      "id": "grammar_081",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "(이는 중요한 의미를 가진다)",
+      "source_file": "ai-tell-taxonomy.txt",
+      "vector": [
+        0.000002471,
+        0.861345697,
+        0.99999111
+      ]
+    },
+    {
+      "id": "grammar_082",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 글에서는 해당 주제에 대해 다각도로 살펴보겠습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000005361,
+        0.935784265,
+        5.79e-7
+      ]
+    },
+    {
+      "id": "grammar_083",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "본격적인 논의에 앞서 핵심 개념을 먼저 짚어보겠습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000009602,
+        0.935779457,
+        0.000004549
+      ]
+    },
+    {
+      "id": "grammar_084",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "크게 세 가지 측면에서 분석할 수 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000009924,
+        0.935781811,
+        0.000007645
+      ]
+    },
+    {
+      "id": "grammar_085",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "첫째, 원인입니다. 둘째, 과정입니다. 셋째, 결과입니다.",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000007031,
+        0.920774062,
+        0.999999511
+      ]
+    },
+    {
+      "id": "grammar_086",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이를 종합하여 다음과 같은 결론을 도출할 수 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000008674,
+        0.946389667,
+        0.000007163
+      ]
+    },
+    {
+      "id": "grammar_087",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "요약하자면, 이 문제는 다면적인 접근이 필요합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000001822,
+        0.920775823,
+        0.370368935
+      ]
+    },
+    {
+      "id": "grammar_088",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "결론부터 말씀드리자면 다음과 같습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003543,
+        0.861353921,
+        0.000007822
+      ]
+    },
+    {
+      "id": "grammar_089",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 문제에 대해서는 하나의 명확한 정답이 존재하지 않습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000008318,
+        0.94638982,
+        9.14e-7
+      ]
+    },
+    {
+      "id": "grammar_090",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "관점과 기준에 따라 다양하게 해석될 여지가 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003643,
+        0.935781604,
+        0.000008977
+      ]
+    },
+    {
+      "id": "grammar_091",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "긍정적인 측면이 있는 반면, 간과할 수 없는 한계점도 존재합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002892,
+        0.954236658,
+        0.285717892
+      ]
+    },
+    {
+      "id": "grammar_092",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "반드시 그렇다고 단정 지어 말하기는 어렵습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000006021,
+        0.920774613,
+        0.000002751
+      ]
+    },
+    {
+      "id": "grammar_093",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "각각의 장단점이 명확하게 존재합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        4.36e-7,
+        0.861348548,
+        0.000009707
+      ]
+    },
+    {
+      "id": "grammar_094",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "어느 한쪽이 완벽하게 옳다고 보기는 힘들며, 균형 잡힌 시각이 요구됩니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        2.26e-7,
+        0.96024351,
+        0.250005698
+      ]
+    },
+    {
+      "id": "grammar_095",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "상황과 맥락에 따라 유동적으로 적용되어야 합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000008626,
+        0.920778032,
+        0.000004498
+      ]
+    },
+    {
+      "id": "grammar_096",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 방식이 모든 상황에 만능으로 적용되는 것은 아닙니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002597,
+        0.946391822,
+        0.000005879
+      ]
+    },
+    {
+      "id": "grammar_097",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "저는 AI 모델로서 직접적인 물리적 경험이나 감정을 느낄 수는 없습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002943,
+        0.960243414,
+        0.000006119
+      ]
+    },
+    {
+      "id": "grammar_098",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "비록 제가 직접 경험할 수는 없으나, 그 중요성과 의미는 충분히 인지하고 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002979,
+        0.968784512,
+        0.222220419
+      ]
+    },
+    {
+      "id": "grammar_099",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "단순한 현상을 넘어 그 이면에 담긴 진정한 의미를 반추해보는 시간이었습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003668,
+        0.960250233,
+        0.000003783
+      ]
+    },
+    {
+      "id": "grammar_100",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "어떤 가치에 마음을 두어야 할지 스스로 되돌아보는 과정이었습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000008138,
+        0.946392874,
+        0.000006913
+      ]
+    },
+    {
+      "id": "grammar_101",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "단순히 정답을 찾는 것을 넘어, 이 질문이 주는 의미를 곱씹어 보게 됩니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000005207,
+        0.96879303,
+        0.243907495
+      ]
+    },
+    {
+      "id": "grammar_102",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "거시적인 관점에서 이 현상의 흐름을 조망해 볼 필요가 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000006885,
+        0.954237965,
+        0.000002779
+      ]
+    },
+    {
+      "id": "grammar_103",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이는 우리 사회에 교육의 중요성을 강하게 시사합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002166,
+        0.935785547,
+        0.000008549
+      ]
+    },
+    {
+      "id": "grammar_104",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "결국 이 모든 과정이 우리를 한 단계 더 성장하게 만들 것입니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000005001,
+        0.96498078,
+        0.000003637
+      ]
+    },
+    {
+      "id": "grammar_105",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이러한 작은 노력들이 모여 결국 더 나은 내일을 만든다는 사실을 잊지 말아야겠습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003908,
+        0.968793559,
+        0.000001782
+      ]
+    },
+    {
+      "id": "grammar_106",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "단순한 발전을 넘어 우리가 나아가야 할 방향을 묻고 있습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002563,
+        0.954242822,
+        0.000008265
+      ]
+    },
+    {
+      "id": "grammar_107",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "앞으로는 서로를 조금 더 배려하고 포용하는 세상이 되기를 소망해 봅니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003447,
+        0.960248515,
+        8.28e-7
+      ]
+    },
+    {
+      "id": "grammar_108",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "우리가 일상에서 무심코 지나쳤던 것들의 소중함을 깨닫게 해주는 대목입니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000001152,
+        0.954233505,
+        0.000008171
+      ]
+    },
+    {
+      "id": "grammar_109",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "오늘 겪었던 무척이나 인상 깊었던 에피소드를 여러분께 공유하고자 합니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000003725,
+        0.954234454,
+        0.000001961
+      ]
+    },
+    {
+      "id": "grammar_110",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "전반적으로 기대에 미치지 못하여 다소 아쉬움이 남았던 순간이었습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.00000829,
+        0.946394889,
+        0.000009271
+      ]
+    },
+    {
+      "id": "grammar_111",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "진솔한 소통을 통해 원만하게 상황을 해결할 수 있었습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000006637,
+        0.946392933,
+        0.0000016
+      ]
+    },
+    {
+      "id": "grammar_112",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "이 얼마나 유쾌하고 가슴 따뜻해지는 경험이 아닐 수 없습니까",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000001187,
+        0.95423619,
+        0.000006209
+      ]
+    },
+    {
+      "id": "grammar_113",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "해당 사안에 대해 조금 더 깊이 파고들어 보겠습니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000002379,
+        0.946388437,
+        0.000006266
+      ]
+    },
+    {
+      "id": "grammar_114",
+      "lang": "ko",
+      "label": "ai_grammar",
+      "source_text": "무엇보다 중요한 것은 꾸준하고 지속적인 노력일 것입니다",
+      "source_file": "ai-tell-taxonomy-carrot.txt",
+      "vector": [
+        0.000007772,
+        0.935777311,
+        9.22e-7
       ]
     }
   ]

@@ -88,4 +88,4 @@ model/datasets/*
 model/*.log
 model/export/tmp/
 
-docs
+docs/

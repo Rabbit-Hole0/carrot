@@ -64,13 +64,6 @@ export default defineBackground(() => {
   async function seedFeatureVectors(): Promise<void> {
     try {
       const existing = await getAllFeatureVectors();
-      if (existing.length > 0) {
-        console.log(
-          `[Carrot Background] Feature vector cache already seeded (${existing.length} entries). Skipping.`,
-        );
-        return;
-      }
-
       const dataset = vectorDataset as {
         version: string;
         vectors: Array<{
@@ -80,6 +73,21 @@ export default defineBackground(() => {
           vector: number[];
         }>;
       };
+
+      if (existing.length > 0) {
+        const expectedLabels = new Set(dataset.vectors.map((entry) => entry.label));
+        const hasAllLabels = [...expectedLabels].every((label) => existing.some((entry) => entry.label === label));
+        if (existing.length === dataset.vectors.length && hasAllLabels) {
+          console.log(
+            `[Carrot Background] Feature vector cache already seeded (${existing.length} entries). Skipping.`,
+          );
+          return;
+        }
+        console.log(`[Carrot Background] Vector dataset changed; replacing ${existing.length} cached entries.`);
+        for (const entry of existing) {
+          if (entry.id !== undefined) await deleteFeatureVector(entry.id);
+        }
+      }
 
       let seeded = 0;
       for (const entry of dataset.vectors) {
