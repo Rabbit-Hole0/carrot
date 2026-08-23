@@ -5,7 +5,7 @@ import type { UserRules } from './settings';
 export interface TextCacheEntry {
   hash: string;
   text: string;
-  vector: [number, number, number, number, number];
+  vector: [number, number, number];
   score: number;
   is_ai: boolean;
   metrics: TextMetrics;
@@ -15,7 +15,7 @@ export interface TextCacheEntry {
 export interface FeatureVectorEntry {
   id?: number;
   label: string;
-  vector: [number, number, number, number, number];
+  vector: [number, number, number];
 }
 
 export interface UserRuleEntry {
@@ -58,12 +58,11 @@ export class TextCacheDatabase extends Dexie {
         if (oldVector && oldVector.length >= 4) {
           entry.metrics = {
             burstiness: oldVector[0],
-            ttr: oldVector[1],
             entropy: oldVector[2],
             ngram: oldVector[3],
           };
         } else {
-          entry.metrics = { burstiness: 0, ttr: 0, entropy: 0, ngram: 0 };
+          entry.metrics = { burstiness: 0, entropy: 0, ngram: 0 };
         }
         
         entry.score = 0; // Default safe value
@@ -85,6 +84,20 @@ export class TextCacheDatabase extends Dexie {
       feature_vectors: '++id, label',
       user_rules: 'key',
     });
+
+    // v5 switches feature vectors from 5D to 4D after removing TTR.
+    this.version(5).stores({
+      text_cache: 'hash, score, created_at',
+      feature_vectors: '++id, label',
+      user_rules: 'key',
+    }).upgrade((trans) => trans.table('feature_vectors').clear());
+
+    // v6 removes N-gram from cosine vectors (4D → 3D).
+    this.version(6).stores({
+      text_cache: 'hash, score, created_at',
+      feature_vectors: '++id, label',
+      user_rules: 'key',
+    }).upgrade((trans) => trans.table('feature_vectors').clear());
   }
 }
 
@@ -202,18 +215,18 @@ export async function purgeOldTextCache(maxItems = 10000, targetItems = 8000): P
   }
 }
 
-export async function addFeatureVector(label: string, vector: [number, number, number, number, number]): Promise<number | undefined> {
+export async function addFeatureVector(label: string, vector: [number, number, number]): Promise<number | undefined> {
   if (!label) {
     console.warn('[Carrot DB] Empty label is not allowed.');
     return undefined;
   }
-  if (vector.length !== 5 || !vector.every(Number.isFinite)) {
+  if (vector.length !== 3 || !vector.every(Number.isFinite)) {
      console.warn('[Carrot DB] Invalid feature vector length or content.');
      return undefined;
   }
   
   // Normalize vector values to [0, 1] bounds if needed
-  const normalizedVector = vector.map(v => Math.max(0, Math.min(1, v))) as [number, number, number, number, number];
+  const normalizedVector = vector.map(v => Math.max(0, Math.min(1, v))) as [number, number, number];
 
   const database = getDB();
   if (!database) return undefined;
