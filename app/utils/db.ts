@@ -33,6 +33,11 @@ export interface DatabaseStatus {
   userRulesCount: number;
 }
 
+export const DEFAULT_TEXT_CACHE_MAX_ITEMS = 10_000;
+export const DEFAULT_TEXT_CACHE_PURGE_ITEMS = 2_000;
+export const DEFAULT_TEXT_CACHE_TARGET_ITEMS =
+  DEFAULT_TEXT_CACHE_MAX_ITEMS - DEFAULT_TEXT_CACHE_PURGE_ITEMS;
+
 export class TextCacheDatabase extends Dexie {
   text_cache!: Table<TextCacheEntry, string>;
   feature_vectors!: Table<FeatureVectorEntry, number>;
@@ -159,13 +164,23 @@ export async function putTextCache(entry: TextCacheEntry): Promise<TextCacheEntr
   const database = getDB();
   if (!database) throw new Error('CarrotDB is not available');
   try {
-    await database.text_cache.put(entry);
-    const stored = await database.text_cache.get(entry.hash);
-    if (!stored) {
-      throw new Error(`Stored text cache entry could not be read back: ${entry.hash}`);
-    }
-    await purgeOldTextCache();
-    return stored;
+    // The write and the limit check must be one transaction. Otherwise
+    // concurrent content-script writes can all pass the count check before
+    // any purge commits, leaving more than 10,000 rows in the store.
+    return await database.transaction('rw', database.text_cache, async () => {
+      await database.text_cache.put(entry);
+      const stored = await database.text_cache.get(entry.hash);
+      if (!stored) {
+        throw new Error(`Stored text cache entry could not be read back: ${entry.hash}`);
+      }
+
+      await purgeTextCacheInTransaction(
+        database,
+        DEFAULT_TEXT_CACHE_MAX_ITEMS,
+        DEFAULT_TEXT_CACHE_TARGET_ITEMS,
+      );
+      return stored;
+    });
   } catch (err) {
     console.warn('[Carrot DB] putTextCache error:', err);
     throw err;
@@ -193,25 +208,70 @@ export async function countTextCache(): Promise<number> {
   }
 }
 
-export async function purgeOldTextCache(maxItems = 10000, targetItems = 8000): Promise<void> {
+/** Purge helper. The caller owns the transaction. */
+async function purgeTextCacheInTransaction(
+  database: TextCacheDatabase,
+  maxItems: number,
+  targetItems: number,
+): Promise<number> {
+  const count = await database.text_cache.count();
+  if (count <= maxItems) return 0;
+
+  // Keep the existing oldest-first eviction policy: once the high-water
+  // mark is crossed, remove 2,000 rows (or the configured reduction amount).
+  const rowsToDelete = Math.min(count, maxItems - targetItems);
+  if (rowsToDelete <= 0) return 0;
+
+  const oldestKeys = await database.text_cache
+    .orderBy('created_at')
+    .limit(rowsToDelete)
+    .primaryKeys();
+  if (oldestKeys.length > 0) {
+    await database.text_cache.bulkDelete(oldestKeys as string[]);
+  }
+  return oldestKeys.length;
+}
+
+/**
+ * Remove the oldest cache rows after the high-water mark is crossed.
+ *
+ * With the default configuration, text_cache is allowed to reach 10,000
+ * rows. The next write removes the oldest 2,000 rows, leaving at most
+ * 10,000 rows (10,001 rows becomes 8,001 rows).
+ */
+export async function purgeOldTextCache(
+  maxItems = DEFAULT_TEXT_CACHE_MAX_ITEMS,
+  targetItems = Math.max(0, maxItems - DEFAULT_TEXT_CACHE_PURGE_ITEMS),
+): Promise<void> {
   const database = getDB();
   if (!database) return;
+
+  if (!Number.isSafeInteger(maxItems) || maxItems < 0) {
+    throw new RangeError(`maxItems must be a non-negative safe integer: ${maxItems}`);
+  }
+  if (!Number.isSafeInteger(targetItems) || targetItems < 0) {
+    throw new RangeError(`targetItems must be a non-negative safe integer: ${targetItems}`);
+  }
+  if (targetItems > maxItems) {
+    throw new RangeError(
+      `targetItems must be less than or equal to maxItems: ${targetItems} > ${maxItems}`,
+    );
+  }
+
   try {
-    const count = await database.text_cache.count();
-    if (count > maxItems) {
-      const itemsToDelete = Math.min(2000, count);
-      const oldestKeys = await database.text_cache
-        .orderBy('created_at')
-        .limit(itemsToDelete)
-        .primaryKeys();
-        
-      await database.transaction('rw', database.text_cache, async () => {
-        await database.text_cache.bulkDelete(oldestKeys as string[]);
-      });
-      console.log(`[Carrot DB] Purged ${oldestKeys.length} old cache entries.`);
-    }
+    await database.transaction('rw', database.text_cache, async () => {
+      const deleted = await purgeTextCacheInTransaction(
+        database,
+        maxItems,
+        targetItems,
+      );
+      if (deleted > 0) {
+        console.log(`[Carrot DB] Purged ${deleted} old cache entries.`);
+      }
+    });
   } catch (err) {
     console.warn('[Carrot DB] purgeOldTextCache error:', err);
+    throw err;
   }
 }
 
